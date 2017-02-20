@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_query" default="compile.module.query">
+  <dirname property="module.query.basedir" file="${ant.file.module_query}"/>
+  
+  <property name="module.jdk.home.query" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.query" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.query" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.query" value="-encoding windows-1251 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="query.output.dir" value="${module.query.basedir}/out/production/Query"/>
+  <property name="query.testoutput.dir" value="${module.query.basedir}/out/test/Query"/>
+  
+  <path id="query.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="query.module.production.classpath">
+    <path refid="${module.jdk.classpath.query}"/>
+    <path refid="library.jdbc.classpath"/>
+  </path>
+  
+  <path id="query.runtime.production.module.classpath">
+    <pathelement location="${query.output.dir}"/>
+    <path refid="library.jdbc.classpath"/>
+  </path>
+  
+  <path id="query.module.classpath">
+    <path refid="${module.jdk.classpath.query}"/>
+    <pathelement location="${query.output.dir}"/>
+    <path refid="library.jdbc.classpath"/>
+  </path>
+  
+  <path id="query.runtime.module.classpath">
+    <pathelement location="${query.testoutput.dir}"/>
+    <pathelement location="${query.output.dir}"/>
+    <path refid="library.jdbc.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.query">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.query">
+    <patternset refid="excluded.from.module.query"/>
+  </patternset>
+  
+  <path id="query.module.sourcepath">
+    <dirset dir="${module.query.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.query" depends="compile.module.query.production,compile.module.query.tests" description="Compile module Query"/>
+  
+  <target name="compile.module.query.production" depends="register.custom.compilers" description="Compile module Query; production classes">
+    <mkdir dir="${query.output.dir}"/>
+    <javac2 destdir="${query.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.query}/javac">
+      <compilerarg line="${compiler.args.query}"/>
+      <bootclasspath refid="query.module.bootclasspath"/>
+      <classpath refid="query.module.production.classpath"/>
+      <src refid="query.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.query"/>
+    </javac2>
+    
+    <copy todir="${query.output.dir}">
+      <fileset dir="${module.query.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.query.tests" depends="register.custom.compilers,compile.module.query.production" description="compile module Query; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.query" description="cleanup module">
+    <delete dir="${query.output.dir}"/>
+    <delete dir="${query.testoutput.dir}"/>
+  </target>
+</project>
