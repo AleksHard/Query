@@ -1,15 +1,21 @@
 package net.hive.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Date;
+/**
+ * Created by kharlashkin on 20.02.2017.
+ * Класс-контроллер, управляющий всей фигнёй.
+ */
 public class Controller {
     // Tab 1
     public TableView<Pojo> tableUsers;
@@ -22,6 +28,8 @@ public class Controller {
     public DatePicker dataDate;     // Дата выдачи пропуска (datePicker)
     public DatePicker dataDate1;    // Дата изъятия пропуска (datePicker)
     public TextField stroki;        // Количество строк (textfield)
+    public MenuItem exExcel;        // Экспорт в Эксель
+    public MenuItem exWord;         // Экспорт в Ворд
     private ObservableList<Pojo> pojoData = FXCollections.observableArrayList();
     public TableColumn<Pojo, String> serColumn;
     public TableColumn<Pojo, String> nomColumn;
@@ -82,10 +90,9 @@ public class Controller {
         inColumn2.setCellValueFactory(new PropertyValueFactory<>("vhod"));
         cartserColumn2.setCellValueFactory(new PropertyValueFactory<>("cartser"));
         //deviseIn2.setCellValueFactory(new PropertyValueFactory<>("devIn"));
-
     }
-        @FXML   // Кнопка "Найти" первой вкладки
-        public void onClickMethod() {
+    @FXML   // Кнопка "Найти" первой вкладки
+    public void onClickMethod() {
         st ="BST";
         c = this.famId.getText();               // Вводим Фамилию
         d = dataDate.getValue();                // Вводим дату начала поиска
@@ -148,12 +155,12 @@ public class Controller {
         System.out.println(zap2(zb2,zc2,za2));
         tableUsers2.setItems(pojoData2);
     }
-        // Объявляем переменные, чтобы записать в них данные запроса.
-        private String tabZ = null;
-        private String a1 = null; private String b1 = null; private String c1 = null; private String d1 = null;
-        private String e1 = null; private String f1 = null; private String g1 = null; private String h1 = null;
-        private String st ="BST";
-        private void baza() {
+    // Объявляем переменные, чтобы записать в них данные запроса.
+    private String tabZ = null;
+    private String a1 = null; private String b1 = null; private String c1 = null; private String d1 = null;
+    private String e1 = null; private String f1 = null; private String g1 = null; private String h1 = null;
+    private String st ="BST";
+    private void baza() {
         try { // Создаём соединение с БД
             st ="BST";
             Connection conn = getConnection();
@@ -238,8 +245,8 @@ public class Controller {
             System.out.println("Обработка NullPointerException");
         }
     }
-        // Тело запроса в первой вкладке.
-        private String zap(String a, String tabZ, String b, String c){
+    // Тело запроса в первой вкладке.
+    private String zap(String a, String tabZ, String b, String c){
             return "select  pr.docser, " +              // Серия паспорта
                     "        pr.docno, " +              // Номер паспорта
                     "        pr.name, " +               // Фамилия
@@ -248,7 +255,7 @@ public class Controller {
                     "        pr.tableno, " +            // Табельный номер
                     "        p.createdate, " +          // Время входа (получения гостевого пропуска)
                     "        p.returndate " +           // Время выхода (возврата гостевого пропуска)
-                    "from    doublepass p" +
+                    " from   doublepass p" +
                     "        left join doubleperson pr on p.personid = pr.personid " +
                     " where p.passtype " + a +
                     " and pr.tableno " + tabZ + "" +
@@ -282,8 +289,8 @@ public class Controller {
         " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
         " and person.orgid = 28";
     }
-            // Метод соединения с БД
-            private Connection getConnection() throws SQLException {
+    // Метод соединения с БД
+    private Connection getConnection() throws SQLException {
                 try {
                     Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
                 } catch (Exception E) {
@@ -299,4 +306,14 @@ public class Controller {
                 prop.setProperty("password", "!a2345678");
                 return DriverManager.getConnection(url, prop);
             }
+
+
+
+    // Экспорт данных поиска в Excel файл
+    public void exExcelButton() throws IOException, NullPointerException {
+        String a = "./query.xlsx";
+        ForExcel.wrightToExcel(a);
+    }
+    public void exWordButton(ActionEvent actionEvent) {
+    }
 }
