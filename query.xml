@@ -89,10 +89,15 @@
   
   <!-- Project Libraries -->
   
-  <path id="library.jdbc.classpath">
-    <fileset dir="C:/Program Files/Java/jdbc">
+  <path id="library.jaybird.classpath">
+    <fileset dir="${basedir}/../../Jaybird-2.2.12-JDK_1.8">
       <patternset refid="library.patterns"/>
     </fileset>
+    <pathelement location="${basedir}/../../poi-3.15/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/../../poi-3.15/ooxml-lib/xmlbeans-2.6.0.jar"/>
+    <pathelement location="${basedir}/../../poi-3.15/poi-3.15.jar"/>
+    <pathelement location="${basedir}/../../poi-3.15/poi-ooxml-3.15.jar"/>
+    <pathelement location="${basedir}/../../poi-3.15/poi-ooxml-schemas-3.15.jar"/>
   </path>
   
   
@@ -126,20 +131,25 @@
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
     <property name="artifact.output.query" value="${basedir}/out/artifacts/Query"/>
     <mkdir dir="${artifacts.temp.dir}"/>
-    <property name="temp.jar.path.Query.war" value="${artifacts.temp.dir}/Query.war"/>
+    <property name="temp.jar.path.Query.jar" value="${artifacts.temp.dir}/Query.jar"/>
   </target>
   
   <target name="artifact.query" depends="init.artifacts, compile.module.query" description="Build &#39;Query&#39; artifact">
     <property name="artifact.temp.output.query" value="${artifacts.temp.dir}/Query"/>
     <mkdir dir="${artifact.temp.output.query}"/>
-    <zip destfile="${temp.jar.path.Query.war}">
+    <jar destfile="${temp.jar.path.Query.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset dir="${query.output.dir}"/>
-      <zipfileset src="C:/Program Files/Java/jdbc/jaybird-2.2.11.jar"/>
-      <zipfileset src="C:/Program Files/Java/jdbc/jaybird-full-2.2.11.jar"/>
-      <zipfileset src="C:/Program Files/Java/jdbc/jaybird-2.2.11-javadoc.jar"/>
-      <zipfileset src="C:/Program Files/Java/jdbc/jaybird-2.2.11-sources.jar"/>
-    </zip>
-    <copy file="${temp.jar.path.Query.war}" tofile="${artifact.temp.output.query}/Query.war"/>
+      <zipfileset src="${basedir}/../../Jaybird-2.2.12-JDK_1.8/jaybird-2.2.12-javadoc.jar"/>
+      <zipfileset src="${basedir}/../../Jaybird-2.2.12-JDK_1.8/jaybird-2.2.12-sources.jar"/>
+      <zipfileset src="${basedir}/../../Jaybird-2.2.12-JDK_1.8/jaybird-2.2.12.jar"/>
+      <zipfileset src="${basedir}/../../Jaybird-2.2.12-JDK_1.8/jaybird-full-2.2.12.jar"/>
+      <zipfileset src="${basedir}/../../poi-3.15/lib/commons-codec-1.10.jar"/>
+      <zipfileset src="${basedir}/../../poi-3.15/ooxml-lib/xmlbeans-2.6.0.jar"/>
+      <zipfileset src="${basedir}/../../poi-3.15/poi-3.15.jar"/>
+      <zipfileset src="${basedir}/../../poi-3.15/poi-ooxml-schemas-3.15.jar"/>
+      <zipfileset src="${basedir}/../../poi-3.15/poi-ooxml-3.15.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.Query.jar}" tofile="${artifact.temp.output.query}/Query.jar"/>
   </target>
   
   <target name="build.all.artifacts" depends="artifact.query" description="Build all artifacts">

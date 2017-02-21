@@ -5,6 +5,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -95,7 +97,7 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </DatePicker>
-               <Button alignment="CENTER" mnemonicParsing="false" onAction="#onClickMethod" prefHeight="31.0" prefWidth="83.0" text="Найти" textAlignment="CENTER">
+               <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#onClickMethod" prefHeight="31.0" prefWidth="83.0" text="Найти" textAlignment="CENTER">
                   <font>
                      <Font size="15.0" />
                   </font>
@@ -187,11 +189,26 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </DatePicker>
-               <Button alignment="CENTER" mnemonicParsing="false" onAction="#onClickMethod2" prefHeight="31.0" prefWidth="83.0" text="Найти" textAlignment="CENTER">
+               <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#onClickMethod2" prefHeight="33.0" prefWidth="83.0" text="Найти" textAlignment="CENTER">
                   <font>
                      <Font size="15.0" />
                   </font>
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
                </Button>
+               <MenuButton mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Экспорт" textAlignment="CENTER">
+                 <items>
+                   <MenuItem fx:id="exExcel" mnemonicParsing="false" onAction="#exExcelButton" text="Excel        " />
+                   <MenuItem fx:id="exWord" disable="true" mnemonicParsing="false" onAction="#exWordButton" text="Word" />
+                 </items>
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
+               </MenuButton>
             </HBox>
             <TableView fx:id="tableUsers2" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
                <columns>
@@ -208,7 +225,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="stroki2" text="Количество строк: 0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+            <TextField fx:id="stroki2" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
          </AnchorPane>
       </Tab>
    </TabPane>
