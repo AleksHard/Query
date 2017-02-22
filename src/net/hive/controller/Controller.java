@@ -28,8 +28,8 @@ public class Controller {
     public DatePicker dataDate;     // ƒата выдачи пропуска (datePicker)
     public DatePicker dataDate1;    // ƒата изъ€ти€ пропуска (datePicker)
     public TextField stroki;        //  оличество строк (textfield)
-    public MenuItem exExcel;        // Ёкспорт в Ёксель
-    public MenuItem exWord;         // Ёкспорт в ¬орд
+    //public MenuItem exExcel;        // Ёкспорт в Ёксель
+    //public MenuItem exWord;         // Ёкспорт в ¬орд
     private ObservableList<Pojo> pojoData = FXCollections.observableArrayList();
     public TableColumn<Pojo, String> serColumn;
     public TableColumn<Pojo, String> nomColumn;
@@ -309,11 +309,24 @@ public class Controller {
 
 
 
-    // Ёкспорт данных поиска в Excel файл
-    public void exExcelButton() throws IOException, NullPointerException {
-        String a = "./query.xlsx";
-        ForExcel.wrightToExcel(a);
+    // Ёкспорт данных поиска в Excel файл (¬кладка —отрудники и гости)
+    public void exExcelButton1() throws IOException, NullPointerException  {
+        String a = "./queryState.xlsx";
+        ForExcel.wrightToExcel1(a,pojoData);
+    }
+    // Ёкспорт данных поиска в Excel файл (¬кладка ѕередвижени€)
+    public void exExcelButton2() throws IOException, NullPointerException {
+        String a = "./queryGo.xlsx";
+        ForExcel.wrightToExcel2(a,pojoData2);
     }
     public void exWordButton(ActionEvent actionEvent) {
+    }
+
+    public void exWordButton2(ActionEvent actionEvent) {
+    }
+
+
+
+    public void exWordButton1(ActionEvent actionEvent) {
     }
 }
