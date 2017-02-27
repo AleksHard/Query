@@ -109,6 +109,7 @@
                   <items>
                      <MenuItem fx:id="exExcel1" mnemonicParsing="false" onAction="#exExcelButton1" text="Excel        " />
                      <MenuItem fx:id="exWord1" disable="true" mnemonicParsing="false" onAction="#exWordButton1" text="Word" />
+                     <MenuItem mnemonicParsing="false" onAction="#exOtchetOFButton" text="Отчёт Фабрика" />
                   </items>
                   <font>
                      <Font size="13.0" />
@@ -135,7 +136,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="stroki" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <TextField fx:id="stroki" prefWidth="823.0" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
          </AnchorPane>
       </Tab>
       <Tab text="Передвижения сотрудников и гостей">

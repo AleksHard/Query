@@ -100,4 +100,41 @@ class ForExcel {
         System.out.println("Excel файл успешно создан!");
         System.out.println("Размер даты = " + nColumnCount);
     }
+    // Отчёт по Фабрике
+    static void otchetOF(String file, ObservableList<Pojo> data)throws IOException, NullPointerException {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Листик");
+        int nColumnCount = data.size();                 // Количество строк в запросе
+        int c=1;
+        XSSFRow row;
+        Pojo pojo;
+        XSSFRow zagolovok = sheet.createRow(1);
+        zagolovok.createCell(0).setCellValue("№ п/п");
+        zagolovok.createCell(1).setCellValue("Серия карты");
+        zagolovok.createCell(2).setCellValue("Номер карты");
+        zagolovok.createCell(3).setCellValue("Подразделение");
+        zagolovok.createCell(4).setCellValue("Дата создания");
+        for(int i = 0; i < nColumnCount; i++){
+            pojo = data.get(i);
+            row = sheet.createRow(c+1);
+            XSSFCell cel0 = row.createCell(0);
+            cel0.setCellValue(c);
+            XSSFCell cel1 = row.createCell(1);
+            cel1.setCellValue(pojo.getSerpas());
+            XSSFCell cel2 = row.createCell(2);
+            cel2.setCellValue(pojo.getNomer());
+            XSSFCell cel3 = row.createCell(3);
+            cel3.setCellValue(pojo.getFamil());
+            XSSFCell cel4 = row.createCell(4);
+            cel4.setCellValue(pojo.getName());
+            c++;
+        }
+        try(FileOutputStream out = new FileOutputStream((new File(file)))){
+            workbook.write(out);
+        }   catch (IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("Excel файл успешно создан!");
+        System.out.println("Размер pojo = " + nColumnCount);
+    }
 }
