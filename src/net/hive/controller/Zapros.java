@@ -1,61 +1,141 @@
 package net.hive.controller;
-
+import java.time.LocalDate;
 /**
- * Êëàññ, ñîäåğæàùèé çàïğîñû ê ÁÄ.
+ * Created by kharlashkin on 22.02.2017.
+ * Çàïğîñû ê ÁÄ Áàñòèîíà / Firebird SQL 2.5
  */
 class Zapros {
-    // Âñå, ïğèõîäèâøèå ñ 20.01.2017
-    // 1 - ïîñòîÿííûå pass
-    // 2 - âğåìåííûå  pass
-    static String zapros() {
-        String zapSQL = "select  pr.docser AS Seria, " +
-                "        pr.docno AS Nomer, " +
-                "        pr.name AS Familia, " +
-                "        pr.firstname AS Name, " +
-                "        pr.secondname AS Otchestvo, " +
-                "        pr.tableno AS Tabelnomer, " +
-                //"        di.attributeval AS Organization, " +
-                "        cast(p.createdate AS VARCHAR(400)), " +
-                "        cast(p.returndate AS VARCHAR(400)) " +              //ÍÅ ÇÀÁÓÄÜ ÏÎÑÒÀÂÈÒÜ ÇÀÏßÒÓŞ!!!
-                //"        c.sitecode AS CartSeriya, " +
-                //"        c.cardno AS CartNomber, " +
-                //"        a.accesslevelname " +
-                "from    doublepass p" +
+        // Çàïğîñû ïåğâîé âêëàäêè
+    static String zap1(String a, String tabZ, String b, String c, LocalDate d, LocalDate e){
+        return "select  pr.docser, " +              // Ñåğèÿ ïàñïîğòà
+                "        pr.docno, " +              // Íîìåğ ïàñïîğòà
+                "        pr.name, " +               // Ôàìèëèÿ
+                "        pr.firstname, " +          // Èìÿ
+                "        pr.secondname, " +         // Îò÷åñòâî
+                "        pr.tableno, " +            // Òàáåëüíûé íîìåğ
+                "        p.createdate, " +          // Âğåìÿ âõîäà (ïîëó÷åíèÿ ãîñòåâîãî ïğîïóñêà)
+                "        p.returndate " +           // Âğåìÿ âûõîäà (âîçâğàòà ãîñòåâîãî ïğîïóñêà)
+                " from   doublepass p" +
                 "        left join doubleperson pr on p.personid = pr.personid " +
-                //"        left join dictvals di on pr.orgid = di.dictvalid " +
-                //"        left join card c on p.cardid = c.cardid " +
-                //"        left join acclname a on p.accesslevel = a.accesslevel " +
-                "where   p.passtype = 2 " +
-                " and p.cardstatus >= 3 " +
-                " and upper(pr.name) like upper ('Á%')" +
-                " and p.createdate > '20.01.2017' " +
-                " and pr.orgid = 28";
-        return zapSQL;
+                " where p.passtype " + a +
+                " and pr.tableno " + tabZ + "" +
+                " and pr.orgid = 28" +
+                " and p.cardstatus " + b +
+                " and upper (pr.name) like upper ('" + c + "%')" +
+                " and p.createdate > '"+ d +"' " +
+                " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
     }
+        // Çàïğîñû âòîğîé âêëàäêè
+    static String zap2(String b2, String c2, String a2, String t2, String t21) {
+        return " select  person.tableno, " +         // Òàáåëüíûé íîìåğ
+                " person.name, " +                    // Ôàìèëèÿ
+                " person.firstname, " +               // Èìÿ
+                " person.secondname, " +              // Îò÷åñòâî
+                " sourcedev.name, " +                 // Íàçâàíèå óñòğîéñòâà
+                " dept.department, " +                // Ïîäğàçäåëåíèå
+                " bmsg.datetime, " +                  // Âğåìÿ ñîáûòèÿ
+                " person.post_name " +                // Äîëæíîñòü
 
-    static String zapSQL() {
-        String zap = "select  pr.docser AS Seria, " +
-                "        pr.docno AS Nomer, " +
-                "        pr.name AS Familia, " +
-                "        pr.firstname AS Name, " +
-                "        pr.secondname AS Otchestvo, " +
-                "        pr.tableno AS Tabelnomer, " +
-                //"        di.attributeval AS Organization, " +
-                "        p.createdate, " +
-                "        p.returndate " +              //ÍÅ ÇÀÁÓÄÜ ÏÎÑÒÀÂÈÒÜ ÇÀÏßÒÓŞ!!!
-                //"        c.sitecode AS CartSeriya, " +
-                //"        c.cardno AS CartNomber, " +
-                //"        a.accesslevelname " +
-                "from    doublepass p" +
-                "        left join doubleperson pr on p.personid = pr.personid " +
-                //"        left join dictvals di on pr.orgid = di.dictvalid " +
-                //"        left join card c on p.cardid = c.cardid " +
-                //"        left join acclname a on p.accesslevel = a.accesslevel " +
-                " where p.passtype = 2 " +
-                " and p.cardstatus >= 3 " +
-                " and pr.name like 'Á%'" +
-                " and p.createdate > '20.01.2017' " +
-                " and pr.orgid = 28";
-        return zap;
+                " from person " +
+                " left join dept on dept.depid = person.depid " +
+                " left join bmsg on bmsg.personid = person.personid " +
+                " left join msgtext on msgtext.msgcode = bmsg.msgcode " +
+                " left join sourcedev on sourcedev.sourcedevid = bmsg.sourcedevid " +
+                " where " +
+                "   person.tableno " + b2 + "" +
+                " and upper (person.name) like upper ('" + c2 + "%')" +
+                " and person.constantaccess " + a2 + " " +
+                " and bmsg.datetime between '" + t2 + "' and '" + t21 + "' " +
+                " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
+                " and person.orgid = 28";
+    }
+        // Çàïğîñ äëÿ åæåìåñÿ÷íîãî îò÷¸òà / Ôàáğèêà
+    static String otchetOF(){
+        return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
+                " from " +
+                " pass p " +
+                " join person pr on p.personid = pr.personid " +
+                " join dictvals d on pr.depid = d.dictvalid " +
+                " join card c on p.cardid = c.cardid " +
+                " where   p.cardstatus >= 1 " +         // 0 - çàÿâêè;
+                                                        // 1 - àêòèâåí;
+                                                        // 3 - àğõèâíûé;
+                " and pr.depid = 781 " +
+                                                        // 780 Ãîñòåâîå ÀÎ "Ìåæäóğå÷üå"
+                                                        // 781 Ãîñòåâîå ÎÔ "Ìåæäóğå÷åíñêàÿ"
+                                                        // 779 Ãîñòåâîå ÓÊ "Şæíàÿ"
+                " and p.passtype = 2 " +
+                                                        // 1 - ïîñòîÿííûå
+                                                        // 2 - âğåìåííûå
+                " and p.createdate between '01.02.2017' and '28.02.2017' " +
+                " group by c.cardno ";
+    }
+        // Çàïğîñ äëÿ åæåìåñÿ÷íîãî îò÷¸òà / ÓÊ Şæíàÿ
+    static String otchetUK(){
+        return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
+                " from " +
+                " pass p " +
+                " join person pr on p.personid = pr.personid " +
+                " join dictvals d on pr.depid = d.dictvalid " +
+                " join card c on p.cardid = c.cardid " +
+                " where   p.cardstatus >= 1 " +         // 0 - çàÿâêè;
+                                                        // 1 - àêòèâåí;
+                                                        // 3 - àğõèâíûé;
+                " and pr.depid = 779 " +
+                                                        // 780 Ãîñòåâîå ÀÎ "Ìåæäóğå÷üå"
+                                                        // 781 Ãîñòåâîå ÎÔ "Ìåæäóğå÷åíñêàÿ"
+                                                        // 779 Ãîñòåâîå ÓÊ "Şæíàÿ"
+                " and p.passtype = 2 " +
+                                                        // 1 - ïîñòîÿííûå
+                                                        // 2 - âğåìåííûå
+                " and p.createdate between '01.02.2017' and '29.02.2017' " +
+                " group by c.cardno ";
     }
 }
+
+
+
+// Òåëî çàïğîñà â ïåğâîé âêëàäêå.
+/* private String zap(String a, String tabZ, String b, String c){
+ return "select  pr.docser, " +              // Ñåğèÿ ïàñïîğòà
+ "        pr.docno, " +              // Íîìåğ ïàñïîğòà
+ "        pr.name, " +               // Ôàìèëèÿ
+ "        pr.firstname, " +          // Èìÿ
+ "        pr.secondname, " +         // Îò÷åñòâî
+ "        pr.tableno, " +            // Òàáåëüíûé íîìåğ
+ "        p.createdate, " +          // Âğåìÿ âõîäà (ïîëó÷åíèÿ ãîñòåâîãî ïğîïóñêà)
+ "        p.returndate " +           // Âğåìÿ âûõîäà (âîçâğàòà ãîñòåâîãî ïğîïóñêà)
+ " from   doublepass p" +
+ "        left join doubleperson pr on p.personid = pr.personid " +
+ " where p.passtype " + a +
+ " and pr.tableno " + tabZ + "" +
+ " and pr.orgid = 28" +
+ " and p.cardstatus " + b +
+ " and upper (pr.name) like upper ('" + c + "%')" +
+ " and p.createdate > '"+ d +"' " +
+ " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
+ }*/
+// Òåëî çàïğîñà âî âòîğîé âêëàäêå.
+/*private String zap2(String b2, String c2, String a2){
+ return " select  person.tableno, " +         // Òàáåëüíûé íîìåğ
+ " person.name, " +                    // Ôàìèëèÿ
+ " person.firstname, " +               // Èìÿ
+ " person.secondname, " +              // Îò÷åñòâî
+ " sourcedev.name, " +                 // Íàçâàíèå óñòğîéñòâà
+ " dept.department, " +                // Ïîäğàçäåëåíèå
+ " bmsg.datetime, " +                  // Âğåìÿ ñîáûòèÿ
+ " person.post_name " +                // Äîëæíîñòü
+
+ " from person " +
+ " left join dept on dept.depid = person.depid " +
+ " left join bmsg on bmsg.personid = person.personid " +
+ " left join msgtext on msgtext.msgcode = bmsg.msgcode " +
+ " left join sourcedev on sourcedev.sourcedevid = bmsg.sourcedevid " +
+ " where " +
+ "   person.tableno " + b2 + "" +
+ " and upper (person.name) like upper ('" + c2 + "%')" +
+ " and person.constantaccess " + a2 + " " +
+ " and bmsg.datetime between '" + t2 + "' and '" + t21 + "' " +
+ " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
+ " and person.orgid = 28";
+ }*/

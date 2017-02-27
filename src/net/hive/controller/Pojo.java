@@ -14,8 +14,14 @@ public class Pojo {
     private String vihod;
     private String devIn;
     private String devOut;
+    private int nomer;
 
-
+    Pojo (String serpas, int nomer, String famil, String name){
+        this.serpas = serpas;
+        this.nomer = nomer;
+        this.famil = famil;
+        this.name = name;
+    }
     Pojo(String serpas, String nompas, String famil, String name, String otch, String cartser, String vhod, String vihod) {
         this.serpas = serpas;
         this.nompas = nompas;
@@ -112,5 +118,13 @@ public class Pojo {
 
     public void setDevOut(String devOut) {
         this.devOut = devOut;
+    }
+
+    public int getNomer() {
+        return nomer;
+    }
+
+    public void setNomer(int nomer) {
+        this.nomer = nomer;
     }
 }

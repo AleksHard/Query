@@ -61,12 +61,12 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </CheckBox>
-               <TextField fx:id="famId" prefHeight="25.0" prefWidth="131.0" promptText="Фамилия">
+               <TextField fx:id="famId" prefHeight="25.0" prefWidth="111.0" promptText="Фамилия">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
                </TextField>
-               <TextField fx:id="tablo" prefHeight="25.0" prefWidth="106.0" promptText="Табельный №">
+               <TextField fx:id="tablo" prefHeight="25.0" prefWidth="100.0" promptText="Табельный №">
                   <HBox.margin>
                      <Insets right="10.0" />
                   </HBox.margin>
@@ -101,7 +101,23 @@
                   <font>
                      <Font size="15.0" />
                   </font>
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
                </Button>
+               <MenuButton mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Экспорт" textAlignment="CENTER">
+                  <items>
+                     <MenuItem fx:id="exExcel1" mnemonicParsing="false" onAction="#exExcelButton1" text="Excel        " />
+                     <MenuItem fx:id="exWord1" disable="true" mnemonicParsing="false" onAction="#exWordButton1" text="Word" />
+                     <MenuItem mnemonicParsing="false" onAction="#exOtchetOFButton" text="Отчёт Фабрика" />
+                  </items>
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets right="5.0" />
+                  </HBox.margin>
+               </MenuButton>
             </HBox>
             <!-- Таблица в которую мы будем выводит наш pojo -->
             <TableView fx:id="tableUsers" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
@@ -120,7 +136,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="stroki" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <TextField fx:id="stroki" prefWidth="823.0" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
          </AnchorPane>
       </Tab>
       <Tab text="Передвижения сотрудников и гостей">
@@ -153,12 +169,12 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </CheckBox>
-               <TextField fx:id="famId2" prefHeight="25.0" prefWidth="131.0" promptText="Фамилия">
+               <TextField fx:id="famId2" prefHeight="25.0" prefWidth="111.0" promptText="Фамилия">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
                </TextField>
-               <TextField fx:id="tablo2" prefHeight="25.0" prefWidth="106.0" promptText="Табельный №">
+               <TextField fx:id="tablo2" prefHeight="25.0" prefWidth="100.0" promptText="Табельный №">
                   <HBox.margin>
                      <Insets right="10.0" />
                   </HBox.margin>
@@ -199,8 +215,8 @@
                </Button>
                <MenuButton mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Экспорт" textAlignment="CENTER">
                  <items>
-                   <MenuItem fx:id="exExcel" mnemonicParsing="false" onAction="#exExcelButton" text="Excel        " />
-                   <MenuItem fx:id="exWord" disable="true" mnemonicParsing="false" onAction="#exWordButton" text="Word" />
+                   <MenuItem fx:id="exExcel2" mnemonicParsing="false" onAction="#exExcelButton2" text="Excel        " />
+                   <MenuItem fx:id="exWord2" disable="true" mnemonicParsing="false" onAction="#exWordButton2" text="Word" />
                  </items>
                   <font>
                      <Font size="13.0" />

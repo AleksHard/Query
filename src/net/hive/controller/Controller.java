@@ -1,7 +1,6 @@
 package net.hive.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,8 +27,8 @@ public class Controller {
     public DatePicker dataDate;     // Дата выдачи пропуска (datePicker)
     public DatePicker dataDate1;    // Дата изъятия пропуска (datePicker)
     public TextField stroki;        // Количество строк (textfield)
-    public MenuItem exExcel;        // Экспорт в Эксель
-    public MenuItem exWord;         // Экспорт в Ворд
+    //public MenuItem exExcel;        // Экспорт в Эксель
+    //public MenuItem exWord;         // Экспорт в Ворд
     private ObservableList<Pojo> pojoData = FXCollections.observableArrayList();
     public TableColumn<Pojo, String> serColumn;
     public TableColumn<Pojo, String> nomColumn;
@@ -57,6 +56,7 @@ public class Controller {
     public TableColumn<Pojo, String> cartserColumn2;
     public TableColumn<Pojo, String> inColumn2;
     private String pattern = "dd.MM.yyyy";
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
     // Комплект переменных первой вкладки
     private String a = ">=1";        // 1 - постоянные, 2 - временные
@@ -72,7 +72,7 @@ public class Controller {
     // инициализируем форму данными
     @FXML
     private void initialize() {
-        // устанавливаем тип и значение которое должно хранится в колонке
+        // устанавливаем тип и значение которое должно храниться в колонке
         serColumn.setCellValueFactory(new PropertyValueFactory<>("serpas"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nompas"));
         famColumn.setCellValueFactory(new PropertyValueFactory<>("famil"));
@@ -112,7 +112,7 @@ public class Controller {
             dataDate1.setPromptText(dat);
             e = time;
         }
-        // заполняем таблицу данными
+        // Чистим таблицу от данных
             pojoData.removeAll(pojoData);
         // логика для галочек
             if(postProps.isSelected()) {a = "=1";}
@@ -120,7 +120,7 @@ public class Controller {
             if(postProps.isSelected() && vremProps.isSelected()){a = ">0";}
             if(actProps.isSelected()){b = "=1";}
             if(archProps.isSelected()){b = ">=3";}
-            System.out.println(zap(a,tabZ,b,c));
+            System.out.println(Zapros.zap1(a,tabZ,b,c,d,e));
             System.out.println(d + " + " + e);
         baza();
 
@@ -146,13 +146,14 @@ public class Controller {
             dataDate21.setPromptText(dat);}
         e2 = e2.plusDays(1);
         t21 = formatter.format(e2);
-        // заполняем таблицу данными
+        // Чистим коллекцию от данных
         pojoData2.removeAll(pojoData2);
         if(postProps2.isSelected()) {za2 = "=1";} else
         if(vremProps2.isSelected()) {za2 = "=2";} else
         if(postProps2.isSelected() && vremProps2.isSelected()){za2 = ">=1";}
         baza2();
-        System.out.println(zap2(zb2,zc2,za2));
+        System.out.println(Zapros.zap2(zb2,zc2,za2,t2,t21));
+        // Заполняем данными таблицу приложения
         tableUsers2.setItems(pojoData2);
     }
     // Объявляем переменные, чтобы записать в них данные запроса.
@@ -168,7 +169,7 @@ public class Controller {
             assert conn != null;
             Statement stmt = conn.createStatement();
             // Тело SQL Запроса
-            String strSQL = zap(a,tabZ,b,c);
+            String strSQL = Zapros.zap1(a,tabZ,b,c,d,e);    //String strSQL = zap(a,tabZ,b,c);
             strSQL = strSQL.toUpperCase();
             // Выполняем SQL запрос.
             ResultSet rs = stmt.executeQuery(strSQL);
@@ -204,7 +205,9 @@ public class Controller {
         c = "";
     }
     // Объявляем переменные, чтобы записать в них данные запроса.
-    private String za2 = null; private String zb2 = null; private String zc2 = null;
+    private String za2 = null;  private String a2 = null;   private String d2 = null;   private String g2 = null;
+    private String zb2 = null;  private String b2 = null;   private String e2 = null;
+    private String zc2 = null;  private String c2 = null;   private String f2 = null;
     private void baza2() {
         try { // Создаём соединение с БД
             st = "bprot";
@@ -213,17 +216,14 @@ public class Controller {
             assert conn != null;
             Statement stmt = conn.createStatement();
             // Тело SQL Запроса
-            String strSQL = zap2(zb2,zc2,za2);
+            String strSQL = Zapros.zap2(zb2,zc2,za2,t2,t21);    //String strSQL = zap2(zb2,zc2,za2);
             strSQL = strSQL.toUpperCase();
             // Выполняем SQL запрос.
             ResultSet rs = stmt.executeQuery(strSQL);
             // Смотрим количество колонок в результате SQL запроса.
             int nColumnsCount = rs.getMetaData().getColumnCount();
             // Форматируем дату.
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
             int ch2=0;
-            String a2 = null; String b2 = null;  String c2 = null;  String d2 = null;
-            String e2 = null; String f2 = null;  String g2 = null;  //String h2 = "ha";
             while (rs.next()) {
                 for (int n = 1; n < nColumnsCount + 1; n++) {
                     Object obj = rs.getObject(n);
@@ -245,49 +245,44 @@ public class Controller {
             System.out.println("Обработка NullPointerException");
         }
     }
-    // Тело запроса в первой вкладке.
-    private String zap(String a, String tabZ, String b, String c){
-            return "select  pr.docser, " +              // Серия паспорта
-                    "        pr.docno, " +              // Номер паспорта
-                    "        pr.name, " +               // Фамилия
-                    "        pr.firstname, " +          // Имя
-                    "        pr.secondname, " +         // Отчество
-                    "        pr.tableno, " +            // Табельный номер
-                    "        p.createdate, " +          // Время входа (получения гостевого пропуска)
-                    "        p.returndate " +           // Время выхода (возврата гостевого пропуска)
-                    " from   doublepass p" +
-                    "        left join doubleperson pr on p.personid = pr.personid " +
-                    " where p.passtype " + a +
-                    " and pr.tableno " + tabZ + "" +
-                    " and pr.orgid = 28" +
-                    " and p.cardstatus " + b +
-                    " and upper (pr.name) like upper ('" + c + "%')" +
-                    " and p.createdate > '"+ d +"' " +
-                    " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
+    // Отчёт по фабрике
+    private String a3 = null; private Integer b3 = null;  private String c3 = null;  private String d3 = null;
+    private void baza3() {
+        try { // Создаём соединение с БД
+            st = "BST";
+            Connection conn = getConnection();
+            // Проверяем, есть-ли соединение.
+            assert conn != null;
+            Statement stmt = conn.createStatement();
+            // Тело SQL Запроса
+            String strSQL = Zapros.otchetOF();    //String strSQL = zap2(zb2,zc2,za2);
+            strSQL = strSQL.toUpperCase();
+            // Выполняем SQL запрос.
+            ResultSet rs = stmt.executeQuery(strSQL);
+            // Смотрим количество колонок в результате SQL запроса.
+            int nColumnsCount = rs.getMetaData().getColumnCount();
+            // Форматируем дату.
+            while (rs.next()) {
+                System.out.println();
+                for (int n = 1; n < nColumnsCount + 1; n++) {
+                    Object obj = rs.getObject(n);
+                    if (n == 1) {a3 = (String) obj; System.out.print(a3 +" | ");}
+                    if (n == 2) {if ( obj != null) {b3 = (Integer) obj;} else b3 = 0; System.out.print(b3 +" | ");}
+                    if (n == 3) {c3 = (String) obj; System.out.print(c3 +" | ");}
+                    if (n == 4) {if ( obj != null) {d3 = dateFormat.format((Date) obj);} else d3 = " ";}
+                    System.out.print(d3 +" | ");
+                }
+                pojoData.add(new Pojo(a3, b3, c3, d3));
+            }
+            //Освобождаем ресурсы.
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    // Тело запроса во второй вкладке.
-    private String zap2(String b2, String c2, String a2){
-        return " select  person.tableno, " +         // Табельный номер
-        " person.name, " +                    // Фамилия
-        " person.firstname, " +               // Имя
-        " person.secondname, " +              // Отчество
-        " sourcedev.name, " +                 // Название устройства
-        " dept.department, " +                // Подразделение
-        " bmsg.datetime, " +                  // Время события
-        " person.post_name " +                // Должность
-
-" from person " +
-        " left join dept on dept.depid = person.depid " +
-        " left join bmsg on bmsg.personid = person.personid " +
-        " left join msgtext on msgtext.msgcode = bmsg.msgcode " +
-        " left join sourcedev on sourcedev.sourcedevid = bmsg.sourcedevid " +
-" where " +
-        "   person.tableno " + b2 + "" +
-        " and upper (person.name) like upper ('" + c2 + "%')" +
-        " and person.constantaccess " + a2 + " " +
-        " and bmsg.datetime between '" + t2 + "' and '" + t21 + "' " +
-        " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
-        " and person.orgid = 28";
+        catch (NullPointerException ex){
+            System.out.println("Обработка NullPointerException");
+        }
     }
     // Метод соединения с БД
     private Connection getConnection() throws SQLException {
@@ -307,13 +302,26 @@ public class Controller {
                 return DriverManager.getConnection(url, prop);
             }
 
-
-
-    // Экспорт данных поиска в Excel файл
-    public void exExcelButton() throws IOException, NullPointerException {
-        String a = "./query.xlsx";
-        ForExcel.wrightToExcel(a);
+    // Экспорт данных поиска в Excel файл (Вкладка Сотрудники и гости)
+    public void exExcelButton1() throws IOException, NullPointerException  {
+        String a = "./queryState.xlsx";
+        ForExcel.wrightToExcel1(a,pojoData);
     }
-    public void exWordButton(ActionEvent actionEvent) {
+    // Экспорт данных поиска в Excel файл (Вкладка Передвижения)
+    public void exExcelButton2() throws IOException, NullPointerException {
+        String a = "./queryGo.xlsx";
+        ForExcel.wrightToExcel2(a,pojoData2);
+    }
+    //public void exWordButton() {
+    //}
+    public void exWordButton2() {
+    }
+    public void exWordButton1() {
+    }
+    public void exOtchetOFButton() throws IOException, NullPointerException  {
+        System.out.println(Zapros.otchetOF());
+        String a = "./queryFabrika.xlsx";
+        baza3();
+        ForExcel.otchetOF(a,pojoData);
     }
 }
