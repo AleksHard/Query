@@ -302,8 +302,8 @@ public class Controller {
                 //String url = "jdbc:firebirdsql:localhost/3050:D:/Bastion/DB_for_reports/BD/BASTION.GDB";
                 // Äàííûå äëÿ ñîåäèíåíèÿ ñ ÁÄ
                 Properties prop = new Properties();
-                prop.setProperty("user", "APP_ADMIN");
-                prop.setProperty("password", "!a2345678");
+                prop.setProperty("user", "user");
+                prop.setProperty("password", "password");
                 return DriverManager.getConnection(url, prop);
             }
 
