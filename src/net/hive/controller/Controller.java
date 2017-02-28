@@ -13,22 +13,22 @@ import java.util.*;
 import java.util.Date;
 /**
  * Created by kharlashkin on 20.02.2017.
- * Класс-контроллер, управляющий всей фигнёй.
+ * ГЉГ«Г Г±Г±-ГЄГ®Г­ГІГ°Г®Г«Г«ГҐГ°, ГіГЇГ°Г ГўГ«ГїГѕГ№ГЁГ© ГўГ±ГҐГ© ГґГЁГЈГ­ВёГ©.
  */
 public class Controller {
     // Tab 1
     public TableView<Pojo> tableUsers;
-    public CheckBox postProps;      // Штат (V)
-    public CheckBox vremProps;      // Гости (V)
-    public CheckBox actProps;       // Актив (V)
-    public CheckBox archProps;      // Архив (V)
-    public TextField tablo;         // Табельный номер (textfield)
-    public TextField famId;         // Фамилия (textfield)
-    public DatePicker dataDate;     // Дата выдачи пропуска (datePicker)
-    public DatePicker dataDate1;    // Дата изъятия пропуска (datePicker)
-    public TextField stroki;        // Количество строк (textfield)
-    //public MenuItem exExcel;        // Экспорт в Эксель
-    //public MenuItem exWord;         // Экспорт в Ворд
+    public CheckBox postProps;      // ГГІГ ГІ (V)
+    public CheckBox vremProps;      // ГѓГ®Г±ГІГЁ (V)
+    public CheckBox actProps;       // ГЂГЄГІГЁГў (V)
+    public CheckBox archProps;      // ГЂГ°ГµГЁГў (V)
+    public TextField tablo;         // Г’Г ГЎГҐГ«ГјГ­Г»Г© Г­Г®Г¬ГҐГ° (textfield)
+    public TextField famId;         // Г”Г Г¬ГЁГ«ГЁГї (textfield)
+    public DatePicker dataDate;     // Г„Г ГІГ  ГўГ»Г¤Г Г·ГЁ ГЇГ°Г®ГЇГіГ±ГЄГ  (datePicker)
+    public DatePicker dataDate1;    // Г„Г ГІГ  ГЁГ§ГєГїГІГЁГї ГЇГ°Г®ГЇГіГ±ГЄГ  (datePicker)
+    public TextField stroki;        // ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ (textfield)
+    //public MenuItem exExcel;        // ГќГЄГ±ГЇГ®Г°ГІ Гў ГќГЄГ±ГҐГ«Гј
+    //public MenuItem exWord;         // ГќГЄГ±ГЇГ®Г°ГІ Гў Г‚Г®Г°Г¤
     private ObservableList<Pojo> pojoData = FXCollections.observableArrayList();
     public TableColumn<Pojo, String> serColumn;
     public TableColumn<Pojo, String> nomColumn;
@@ -40,13 +40,13 @@ public class Controller {
     public TableColumn<Pojo, String> outColumn;
     // TAB 2
     public TableView<Pojo> tableUsers2;
-    public CheckBox postProps2;     // Штат (V)
-    public CheckBox vremProps2;     // Гости (V)
-    public TextField tablo2;        // Табельный номер (textfield)
-    public TextField famId2;        // Фамилия (textfield)
-    public DatePicker dataDate2;    // Дата выдачи пропуска (datePicker)
-    public DatePicker dataDate21;   // Дата изъятия пропуска (datePicker)
-    public TextField stroki2;       // Количество строк (textfield)
+    public CheckBox postProps2;     // ГГІГ ГІ (V)
+    public CheckBox vremProps2;     // ГѓГ®Г±ГІГЁ (V)
+    public TextField tablo2;        // Г’Г ГЎГҐГ«ГјГ­Г»Г© Г­Г®Г¬ГҐГ° (textfield)
+    public TextField famId2;        // Г”Г Г¬ГЁГ«ГЁГї (textfield)
+    public DatePicker dataDate2;    // Г„Г ГІГ  ГўГ»Г¤Г Г·ГЁ ГЇГ°Г®ГЇГіГ±ГЄГ  (datePicker)
+    public DatePicker dataDate21;   // Г„Г ГІГ  ГЁГ§ГєГїГІГЁГї ГЇГ°Г®ГЇГіГ±ГЄГ  (datePicker)
+    public TextField stroki2;       // ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ (textfield)
     private ObservableList<Pojo> pojoData2 = FXCollections.observableArrayList();
     public TableColumn<Pojo, String> serColumn2;
     public TableColumn<Pojo, String> nomColumn2;
@@ -58,21 +58,21 @@ public class Controller {
     private String pattern = "dd.MM.yyyy";
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-    // Комплект переменных первой вкладки
-    private String a = ">=1";        // 1 - постоянные, 2 - временные
-    private String b = ">=0";        // 0 - заявки, 1 - активные, 3 - архивные, >= 3 - Постоянные архивные
+    // ГЉГ®Г¬ГЇГ«ГҐГЄГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ ГЇГҐГ°ГўГ®Г© ГўГЄГ«Г Г¤ГЄГЁ
+    private String a = ">=1";        // 1 - ГЇГ®Г±ГІГ®ГїГ­Г­Г»ГҐ, 2 - ГўГ°ГҐГ¬ГҐГ­Г­Г»ГҐ
+    private String b = ">=0";        // 0 - Г§Г ГїГўГЄГЁ, 1 - Г ГЄГІГЁГўГ­Г»ГҐ, 3 - Г Г°ГµГЁГўГ­Г»ГҐ, >= 3 - ГЏГ®Г±ГІГ®ГїГ­Г­Г»ГҐ Г Г°ГµГЁГўГ­Г»ГҐ
     private String c = "";
     private LocalDate time = LocalDate.now().plusDays(1);
     private LocalDate f = LocalDate.now();
     private LocalDate d = LocalDate.now();
     private LocalDate e = LocalDate.now();
-    // Комплект переменных второй вкладки
+    // ГЉГ®Г¬ГЇГ«ГҐГЄГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ ГўГІГ®Г°Г®Г© ГўГЄГ«Г Г¤ГЄГЁ
     private String t2 = "";
     private String t21 = "";
-    // инициализируем форму данными
+    // ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°ГіГҐГ¬ ГґГ®Г°Г¬Гі Г¤Г Г­Г­Г»Г¬ГЁ
     @FXML
     private void initialize() {
-        // устанавливаем тип и значение которое должно храниться в колонке
+        // ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГІГЁГЇ ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЄГ®ГІГ®Г°Г®ГҐ Г¤Г®Г«Г¦Г­Г® ГµГ°Г Г­ГЁГІГјГ±Гї Гў ГЄГ®Г«Г®Г­ГЄГҐ
         serColumn.setCellValueFactory(new PropertyValueFactory<>("serpas"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nompas"));
         famColumn.setCellValueFactory(new PropertyValueFactory<>("famil"));
@@ -91,30 +91,31 @@ public class Controller {
         cartserColumn2.setCellValueFactory(new PropertyValueFactory<>("cartser"));
         //deviseIn2.setCellValueFactory(new PropertyValueFactory<>("devIn"));
     }
-    @FXML   // Кнопка "Найти" первой вкладки
+    @FXML   // ГЉГ­Г®ГЇГЄГ  "ГЌГ Г©ГІГЁ" ГЇГҐГ°ГўГ®Г© ГўГЄГ«Г Г¤ГЄГЁ
     public void onClickMethod() {
         st ="BST";
-        c = this.famId.getText();               // Вводим Фамилию
-        d = dataDate.getValue();                // Вводим дату начала поиска
+        c = this.famId.getText();               // Г‚ГўГ®Г¤ГЁГ¬ Г”Г Г¬ГЁГ«ГЁГѕ
+        d = dataDate.getValue();                // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі Г­Г Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ 
+        famId2.setText(c);                      // ГЏГҐГ°ГҐГ¬ГҐГ№Г ГҐГ¬ ГўГўГҐГ¤ВёГ­ГіГѕ ГґГ Г¬ГЁГ«ГЁГѕ ГўГ® ГўГІГ®Г°ГіГѕ ГўГЄГ«Г Г¤ГЄГі
         if (d == null){
             String dat = f.format(formatter);
             dataDate.setPromptText(dat);
         }
         if (tablo.getText().isEmpty()){
                 tabZ = ">=1";
-            }else{tabZ = "="+ tablo.getText();} // Вводим табельный номер
+            }else{tabZ = "="+ tablo.getText();} // Г‚ГўГ®Г¤ГЁГ¬ ГІГ ГЎГҐГ«ГјГ­Г»Г© Г­Г®Г¬ГҐГ°
         if (d == null){
             d = LocalDate.now();
         }
-        e = dataDate1.getValue();               // Вводим дату кончала поиска :-)
+        e = dataDate1.getValue();               // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі ГЄГ®Г­Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ  :-)
         if (e == null){
             String dat = f.format(formatter);
             dataDate1.setPromptText(dat);
             e = time;
         }
-        // Чистим таблицу от данных
+        // Г—ГЁГ±ГІГЁГ¬ ГІГ ГЎГ«ГЁГ¶Гі Г®ГІ Г¤Г Г­Г­Г»Гµ
             pojoData.removeAll(pojoData);
-        // логика для галочек
+        // Г«Г®ГЈГЁГЄГ  Г¤Г«Гї ГЈГ Г«Г®Г·ГҐГЄ
             if(postProps.isSelected()) {a = "=1";}
             if(vremProps.isSelected()) {a = "=2";}
             if(postProps.isSelected() && vremProps.isSelected()){a = ">0";}
@@ -124,58 +125,59 @@ public class Controller {
             System.out.println(d + " + " + e);
         baza();
 
-        tableUsers.setItems(pojoData);              // Заполняем таблицу данными
+        tableUsers.setItems(pojoData);              // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі Г¤Г Г­Г­Г»Г¬ГЁ
     }
-    @FXML   // Кнопка "Найти", второй вкладки
+    @FXML   // ГЉГ­Г®ГЇГЄГ  "ГЌГ Г©ГІГЁ", ГўГІГ®Г°Г®Г© ГўГЄГ«Г Г¤ГЄГЁ
     public void onClickMethod2() {
-        za2 = ">=1";                               // 1 - постоянные, 2 - временные
+        za2 = ">=1";                               // 1 - ГЇГ®Г±ГІГ®ГїГ­Г­Г»ГҐ, 2 - ГўГ°ГҐГ¬ГҐГ­Г­Г»ГҐ
         st = "bprot";
-        zc2 = famId2.getText();                    // Вводим Фамилию
+        zc2 = famId2.getText();                    // Г‚ГўГ®Г¤ГЁГ¬ Г”Г Г¬ГЁГ«ГЁГѕ
+        famId.setText(zc2);                        // ГЏГҐГ°ГҐГ¬ГҐГ№Г ГҐГ¬ ГўГўГҐГ¤ВёГ­ГіГѕ ГґГ Г¬ГЁГ«ГЁГѕ Гў ГЇГҐГ°ГўГіГѕ ГўГЄГ«Г Г¤ГЄГі
         if (tablo2.getText().isEmpty()){
             zb2 = ">=1";
-        }else{zb2 = "="+ tablo2.getText();}                 // Вводим табельный номер
-        LocalDate d2 = dataDate2.getValue();                // Вводим дату начала поиска
+        }else{zb2 = "="+ tablo2.getText();}                 // Г‚ГўГ®Г¤ГЁГ¬ ГІГ ГЎГҐГ«ГјГ­Г»Г© Г­Г®Г¬ГҐГ°
+        LocalDate d2 = dataDate2.getValue();                // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі Г­Г Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ 
         if (d2 == null){
             d2 = LocalDate.now();
             String dat = f.format(formatter);
             dataDate2.setPromptText(dat);}
         t2 = formatter.format(d2);
-        LocalDate e2 = dataDate21.getValue();               // Вводим дату кончала поиска :-)
+        LocalDate e2 = dataDate21.getValue();               // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі ГЄГ®Г­Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ  :-)
         if (e2 == null){e2 = time;
             String dat = f.format(formatter);
             dataDate21.setPromptText(dat);}
         e2 = e2.plusDays(1);
         t21 = formatter.format(e2);
-        // Чистим коллекцию от данных
+        // Г—ГЁГ±ГІГЁГ¬ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ Г®ГІ Г¤Г Г­Г­Г»Гµ
         pojoData2.removeAll(pojoData2);
         if(postProps2.isSelected()) {za2 = "=1";} else
         if(vremProps2.isSelected()) {za2 = "=2";} else
         if(postProps2.isSelected() && vremProps2.isSelected()){za2 = ">=1";}
         baza2();
         System.out.println(Zapros.zap2(zb2,zc2,za2,t2,t21));
-        // Заполняем данными таблицу приложения
+        // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ Г¤Г Г­Г­Г»Г¬ГЁ ГІГ ГЎГ«ГЁГ¶Гі ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї
         tableUsers2.setItems(pojoData2);
     }
-    // Объявляем переменные, чтобы записать в них данные запроса.
+    // ГЋГЎГєГїГўГ«ГїГҐГ¬ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ, Г·ГІГ®ГЎГ» Г§Г ГЇГЁГ±Г ГІГј Гў Г­ГЁГµ Г¤Г Г­Г­Г»ГҐ Г§Г ГЇГ°Г®Г±Г .
     private String tabZ = null;
     private String a1 = null; private String b1 = null; private String c1 = null; private String d1 = null;
     private String e1 = null; private String f1 = null; private String g1 = null; private String h1 = null;
     private String st ="BST";
     private void baza() {
-        try { // Создаём соединение с БД
+        try { // Г‘Г®Г§Г¤Г ВёГ¬ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ Г± ГЃГ„
             st ="BST";
             Connection conn = getConnection();
-            // Проверяем, есть-ли соединение.
+            // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј-Г«ГЁ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ.
             assert conn != null;
             Statement stmt = conn.createStatement();
-            // Тело SQL Запроса
+            // Г’ГҐГ«Г® SQL Г‡Г ГЇГ°Г®Г±Г 
             String strSQL = Zapros.zap1(a,tabZ,b,c,d,e);    //String strSQL = zap(a,tabZ,b,c);
             strSQL = strSQL.toUpperCase();
-            // Выполняем SQL запрос.
+            // Г‚Г»ГЇГ®Г«Г­ГїГҐГ¬ SQL Г§Г ГЇГ°Г®Г±.
             ResultSet rs = stmt.executeQuery(strSQL);
-            // Смотрим количество колонок в результате SQL запроса.
+            // Г‘Г¬Г®ГІГ°ГЁГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г«Г®Г­Г®ГЄ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ SQL Г§Г ГЇГ°Г®Г±Г .
             int nColumnsCount = rs.getMetaData().getColumnCount();
-            // Форматируем дату.
+            // Г”Г®Г°Г¬Г ГІГЁГ°ГіГҐГ¬ Г¤Г ГІГі.
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
             int ch=0;
             while (rs.next()) {
@@ -189,40 +191,40 @@ public class Controller {
                         else h1 = " ";}
                 }
                 pojoData.add(new Pojo(a1, b1, c1, d1, e1, f1, g1, h1));
-                stroki.setText("Количество строк: "+ ch);
+                stroki.setText("ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ: "+ ch);
             }
-            //Освобождаем ресурсы.
+            //ГЋГ±ГўГ®ГЎГ®Г¦Г¤Г ГҐГ¬ Г°ГҐГ±ГіГ°Г±Г».
             stmt.close();
             conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         catch (NullPointerException ex){
-            System.out.println("Обработка NullPointerException");
+            System.out.println("ГЋГЎГ°Г ГЎГ®ГІГЄГ  NullPointerException");
         }
-        a = ">=1";        // 1 - постоянные, 2 - временные
-        b = ">=0";        // 0 - заявки, 1 - активные, 3 - архивные, >= 3 - Постоянные архивные
+        a = ">=1";        // 1 - ГЇГ®Г±ГІГ®ГїГ­Г­Г»ГҐ, 2 - ГўГ°ГҐГ¬ГҐГ­Г­Г»ГҐ
+        b = ">=0";        // 0 - Г§Г ГїГўГЄГЁ, 1 - Г ГЄГІГЁГўГ­Г»ГҐ, 3 - Г Г°ГµГЁГўГ­Г»ГҐ, >= 3 - ГЏГ®Г±ГІГ®ГїГ­Г­Г»ГҐ Г Г°ГµГЁГўГ­Г»ГҐ
         c = "";
     }
-    // Объявляем переменные, чтобы записать в них данные запроса.
+    // ГЋГЎГєГїГўГ«ГїГҐГ¬ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ, Г·ГІГ®ГЎГ» Г§Г ГЇГЁГ±Г ГІГј Гў Г­ГЁГµ Г¤Г Г­Г­Г»ГҐ Г§Г ГЇГ°Г®Г±Г .
     private String za2 = null;  private String a2 = null;   private String d2 = null;   private String g2 = null;
     private String zb2 = null;  private String b2 = null;   private String e2 = null;
     private String zc2 = null;  private String c2 = null;   private String f2 = null;
     private void baza2() {
-        try { // Создаём соединение с БД
+        try { // Г‘Г®Г§Г¤Г ВёГ¬ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ Г± ГЃГ„
             st = "bprot";
             Connection conn = getConnection();
-            // Проверяем, есть-ли соединение.
+            // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј-Г«ГЁ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ.
             assert conn != null;
             Statement stmt = conn.createStatement();
-            // Тело SQL Запроса
+            // Г’ГҐГ«Г® SQL Г‡Г ГЇГ°Г®Г±Г 
             String strSQL = Zapros.zap2(zb2,zc2,za2,t2,t21);    //String strSQL = zap2(zb2,zc2,za2);
             strSQL = strSQL.toUpperCase();
-            // Выполняем SQL запрос.
+            // Г‚Г»ГЇГ®Г«Г­ГїГҐГ¬ SQL Г§Г ГЇГ°Г®Г±.
             ResultSet rs = stmt.executeQuery(strSQL);
-            // Смотрим количество колонок в результате SQL запроса.
+            // Г‘Г¬Г®ГІГ°ГЁГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г«Г®Г­Г®ГЄ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ SQL Г§Г ГЇГ°Г®Г±Г .
             int nColumnsCount = rs.getMetaData().getColumnCount();
-            // Форматируем дату.
+            // Г”Г®Г°Г¬Г ГІГЁГ°ГіГҐГ¬ Г¤Г ГІГі.
             int ch2=0;
             while (rs.next()) {
                 for (int n = 1; n < nColumnsCount + 1; n++) {
@@ -233,35 +235,38 @@ public class Controller {
                     //if (n == 8) {if ( obj != null) {h2 = (String) obj;} else h2 = "ha";}
                 }
                 pojoData2.add(new Pojo(a2, b2, c2, d2, e2, f2, g2));
-                stroki2.setText("Количество строк: "+ ch2);
+                stroki2.setText("ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ: "+ ch2);
             }
-            //Освобождаем ресурсы.
+            //ГЋГ±ГўГ®ГЎГ®Г¦Г¤Г ГҐГ¬ Г°ГҐГ±ГіГ°Г±Г».
             stmt.close();
             conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         catch (NullPointerException ex){
-            System.out.println("Обработка NullPointerException");
+            System.out.println("ГЋГЎГ°Г ГЎГ®ГІГЄГ  NullPointerException");
         }
     }
-    // Отчёт по фабрике
+    // ГЋГІГ·ВёГІ ГЇГ® ГґГ ГЎГ°ГЁГЄГҐ
     private String a3 = null; private Integer b3 = null;  private String c3 = null;  private String d3 = null;
-    private void baza3() {
-        try { // Создаём соединение с БД
+
+    private void baza3(String test) {
+        try { // Г‘Г®Г§Г¤Г ВёГ¬ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ Г± ГЃГ„
+
+
             st = "BST";
             Connection conn = getConnection();
-            // Проверяем, есть-ли соединение.
+            // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј-Г«ГЁ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ.
             assert conn != null;
             Statement stmt = conn.createStatement();
-            // Тело SQL Запроса
-            String strSQL = Zapros.otchetOF();    //String strSQL = zap2(zb2,zc2,za2);
+            // Г’ГҐГ«Г® SQL Г‡Г ГЇГ°Г®Г±Г 
+            String strSQL = test;
             strSQL = strSQL.toUpperCase();
-            // Выполняем SQL запрос.
+            // Г‚Г»ГЇГ®Г«Г­ГїГҐГ¬ SQL Г§Г ГЇГ°Г®Г±.
             ResultSet rs = stmt.executeQuery(strSQL);
-            // Смотрим количество колонок в результате SQL запроса.
+            // Г‘Г¬Г®ГІГ°ГЁГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г«Г®Г­Г®ГЄ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ SQL Г§Г ГЇГ°Г®Г±Г .
             int nColumnsCount = rs.getMetaData().getColumnCount();
-            // Форматируем дату.
+            // Г”Г®Г°Г¬Г ГІГЁГ°ГіГҐГ¬ Г¤Г ГІГі.
             while (rs.next()) {
                 System.out.println();
                 for (int n = 1; n < nColumnsCount + 1; n++) {
@@ -274,17 +279,17 @@ public class Controller {
                 }
                 pojoData.add(new Pojo(a3, b3, c3, d3));
             }
-            //Освобождаем ресурсы.
+            //ГЋГ±ГўГ®ГЎГ®Г¦Г¤Г ГҐГ¬ Г°ГҐГ±ГіГ°Г±Г».
             stmt.close();
             conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         catch (NullPointerException ex){
-            System.out.println("Обработка NullPointerException");
+            System.out.println("ГЋГЎГ°Г ГЎГ®ГІГЄГ  NullPointerException");
         }
     }
-    // Метод соединения с БД
+    // ГЊГҐГІГ®Г¤ Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГї Г± ГЃГ„
     private Connection getConnection() throws SQLException {
                 try {
                     Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
@@ -292,22 +297,22 @@ public class Controller {
                     System.err.println("Unable to load driver.");
                     E.printStackTrace();
                 }
-                // Путь к рабочей БД
+                // ГЏГіГІГј ГЄ Г°Г ГЎГ®Г·ГҐГ© ГЃГ„
                 String url = "jdbc:firebirdsql:192.168.99.239/3050:"+st;
                 //String url = "jdbc:firebirdsql:localhost/3050:D:/Bastion/DB_for_reports/BD/BASTION.GDB";
-                // Данные для соединения с БД
+                // Г„Г Г­Г­Г»ГҐ Г¤Г«Гї Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГї Г± ГЃГ„
                 Properties prop = new Properties();
                 prop.setProperty("user", "APP_ADMIN");
                 prop.setProperty("password", "!a2345678");
                 return DriverManager.getConnection(url, prop);
             }
 
-    // Экспорт данных поиска в Excel файл (Вкладка Сотрудники и гости)
+    // ГќГЄГ±ГЇГ®Г°ГІ Г¤Г Г­Г­Г»Гµ ГЇГ®ГЁГ±ГЄГ  Гў Excel ГґГ Г©Г« (Г‚ГЄГ«Г Г¤ГЄГ  Г‘Г®ГІГ°ГіГ¤Г­ГЁГЄГЁ ГЁ ГЈГ®Г±ГІГЁ)
     public void exExcelButton1() throws IOException, NullPointerException  {
         String a = "./queryState.xlsx";
         ForExcel.wrightToExcel1(a,pojoData);
     }
-    // Экспорт данных поиска в Excel файл (Вкладка Передвижения)
+    // ГќГЄГ±ГЇГ®Г°ГІ Г¤Г Г­Г­Г»Гµ ГЇГ®ГЁГ±ГЄГ  Гў Excel ГґГ Г©Г« (Г‚ГЄГ«Г Г¤ГЄГ  ГЏГҐГ°ГҐГ¤ГўГЁГ¦ГҐГ­ГЁГї)
     public void exExcelButton2() throws IOException, NullPointerException {
         String a = "./queryGo.xlsx";
         ForExcel.wrightToExcel2(a,pojoData2);
@@ -319,9 +324,45 @@ public class Controller {
     public void exWordButton1() {
     }
     public void exOtchetOFButton() throws IOException, NullPointerException  {
-        System.out.println(Zapros.otchetOF());
+        System.out.println(Zapros.otchetOF(t2, t21));
+        // Г—ГЁГ±ГІГЁГ¬ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ Г®ГІ Г¤Г Г­Г­Г»Гµ
+        pojoData.removeAll(pojoData);
         String a = "./queryFabrika.xlsx";
-        baza3();
+        LocalDate d2 = dataDate.getValue();                // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі Г­Г Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ 
+        if (d2 == null){
+            d2 = LocalDate.now();
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);}
+        t2 = formatter.format(d2);
+        LocalDate e2 = dataDate1.getValue();               // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі ГЄГ®Г­Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ  :-)
+        if (e2 == null){e2 = time;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);}
+        e2 = e2.plusDays(1);
+        t21 = formatter.format(e2);
+        baza3(Zapros.otchetOF(t2, t21));
         ForExcel.otchetOF(a,pojoData);
+    }
+
+    public void exOtchetUKButton() throws IOException, NullPointerException {
+        System.out.println(Zapros.otchetUK(t2, t21));
+        // Г—ГЁГ±ГІГЁГ¬ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ Г®ГІ Г¤Г Г­Г­Г»Гµ
+        pojoData.removeAll(pojoData);
+        String a = "./queryUzhnaya.xlsx";
+        LocalDate d2 = dataDate.getValue();                // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі Г­Г Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ 
+        if (d2 == null){
+            d2 = LocalDate.now();
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);}
+        t2 = formatter.format(d2);
+        LocalDate e2 = dataDate1.getValue();               // Г‚ГўГ®Г¤ГЁГ¬ Г¤Г ГІГі ГЄГ®Г­Г·Г Г«Г  ГЇГ®ГЁГ±ГЄГ  :-)
+        if (e2 == null){e2 = time;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);}
+        e2 = e2.plusDays(1);
+        t21 = formatter.format(e2);
+        baza3(Zapros.otchetUK(t2, t21));
+        ForExcel.otchetUK(a,pojoData);
+
     }
 }

@@ -2,19 +2,19 @@ package net.hive.controller;
 import java.time.LocalDate;
 /**
  * Created by kharlashkin on 22.02.2017.
- * Çàïğîñû ê ÁÄ Áàñòèîíà / Firebird SQL 2.5
+ * Ã‡Ã Ã¯Ã°Ã®Ã±Ã» Ãª ÃÃ„ ÃÃ Ã±Ã²Ã¨Ã®Ã­Ã  / Firebird SQL 2.5
  */
 class Zapros {
-        // Çàïğîñû ïåğâîé âêëàäêè
+        // Ã‡Ã Ã¯Ã°Ã®Ã±Ã» Ã¯Ã¥Ã°Ã¢Ã®Ã© Ã¢ÃªÃ«Ã Ã¤ÃªÃ¨
     static String zap1(String a, String tabZ, String b, String c, LocalDate d, LocalDate e){
-        return "select  pr.docser, " +              // Ñåğèÿ ïàñïîğòà
-                "        pr.docno, " +              // Íîìåğ ïàñïîğòà
-                "        pr.name, " +               // Ôàìèëèÿ
-                "        pr.firstname, " +          // Èìÿ
-                "        pr.secondname, " +         // Îò÷åñòâî
-                "        pr.tableno, " +            // Òàáåëüíûé íîìåğ
-                "        p.createdate, " +          // Âğåìÿ âõîäà (ïîëó÷åíèÿ ãîñòåâîãî ïğîïóñêà)
-                "        p.returndate " +           // Âğåìÿ âûõîäà (âîçâğàòà ãîñòåâîãî ïğîïóñêà)
+        return "select  pr.docser, " +              // Ã‘Ã¥Ã°Ã¨Ã¿ Ã¯Ã Ã±Ã¯Ã®Ã°Ã²Ã 
+                "        pr.docno, " +              // ÃÃ®Ã¬Ã¥Ã° Ã¯Ã Ã±Ã¯Ã®Ã°Ã²Ã 
+                "        pr.name, " +               // Ã”Ã Ã¬Ã¨Ã«Ã¨Ã¿
+                "        pr.firstname, " +          // ÃˆÃ¬Ã¿
+                "        pr.secondname, " +         // ÃÃ²Ã·Ã¥Ã±Ã²Ã¢Ã®
+                "        pr.tableno, " +            // Ã’Ã Ã¡Ã¥Ã«Ã¼Ã­Ã»Ã© Ã­Ã®Ã¬Ã¥Ã°
+                "        p.createdate, " +          // Ã‚Ã°Ã¥Ã¬Ã¿ Ã¢ÃµÃ®Ã¤Ã  (Ã¯Ã®Ã«Ã³Ã·Ã¥Ã­Ã¨Ã¿ Ã£Ã®Ã±Ã²Ã¥Ã¢Ã®Ã£Ã® Ã¯Ã°Ã®Ã¯Ã³Ã±ÃªÃ )
+                "        p.returndate " +           // Ã‚Ã°Ã¥Ã¬Ã¿ Ã¢Ã»ÃµÃ®Ã¤Ã  (Ã¢Ã®Ã§Ã¢Ã°Ã Ã²Ã  Ã£Ã®Ã±Ã²Ã¥Ã¢Ã®Ã£Ã® Ã¯Ã°Ã®Ã¯Ã³Ã±ÃªÃ )
                 " from   doublepass p" +
                 "        left join doubleperson pr on p.personid = pr.personid " +
                 " where p.passtype " + a +
@@ -25,16 +25,16 @@ class Zapros {
                 " and p.createdate > '"+ d +"' " +
                 " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
     }
-        // Çàïğîñû âòîğîé âêëàäêè
+        // Ã‡Ã Ã¯Ã°Ã®Ã±Ã» Ã¢Ã²Ã®Ã°Ã®Ã© Ã¢ÃªÃ«Ã Ã¤ÃªÃ¨
     static String zap2(String b2, String c2, String a2, String t2, String t21) {
-        return " select  person.tableno, " +         // Òàáåëüíûé íîìåğ
-                " person.name, " +                    // Ôàìèëèÿ
-                " person.firstname, " +               // Èìÿ
-                " person.secondname, " +              // Îò÷åñòâî
-                " sourcedev.name, " +                 // Íàçâàíèå óñòğîéñòâà
-                " dept.department, " +                // Ïîäğàçäåëåíèå
-                " bmsg.datetime, " +                  // Âğåìÿ ñîáûòèÿ
-                " person.post_name " +                // Äîëæíîñòü
+        return " select  person.tableno, " +         // Ã’Ã Ã¡Ã¥Ã«Ã¼Ã­Ã»Ã© Ã­Ã®Ã¬Ã¥Ã°
+                " person.name, " +                    // Ã”Ã Ã¬Ã¨Ã«Ã¨Ã¿
+                " person.firstname, " +               // ÃˆÃ¬Ã¿
+                " person.secondname, " +              // ÃÃ²Ã·Ã¥Ã±Ã²Ã¢Ã®
+                " sourcedev.name, " +                 // ÃÃ Ã§Ã¢Ã Ã­Ã¨Ã¥ Ã³Ã±Ã²Ã°Ã®Ã©Ã±Ã²Ã¢Ã 
+                " dept.department, " +                // ÃÃ®Ã¤Ã°Ã Ã§Ã¤Ã¥Ã«Ã¥Ã­Ã¨Ã¥
+                " bmsg.datetime, " +                  // Ã‚Ã°Ã¥Ã¬Ã¿ Ã±Ã®Ã¡Ã»Ã²Ã¨Ã¿
+                " person.post_name " +                // Ã„Ã®Ã«Ã¦Ã­Ã®Ã±Ã²Ã¼
 
                 " from person " +
                 " left join dept on dept.depid = person.depid " +
@@ -49,62 +49,68 @@ class Zapros {
                 " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
                 " and person.orgid = 28";
     }
-        // Çàïğîñ äëÿ åæåìåñÿ÷íîãî îò÷¸òà / Ôàáğèêà
-    static String otchetOF(){
-        return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
+        // Ã‡Ã Ã¯Ã°Ã®Ã± Ã¤Ã«Ã¿ Ã¥Ã¦Ã¥Ã¬Ã¥Ã±Ã¿Ã·Ã­Ã®Ã£Ã® Ã®Ã²Ã·Â¸Ã²Ã  / Ã”Ã Ã¡Ã°Ã¨ÃªÃ 
+
+                static String otchetOF(String t2, String t21){
+
+                return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
                 " from " +
                 " pass p " +
                 " join person pr on p.personid = pr.personid " +
                 " join dictvals d on pr.depid = d.dictvalid " +
                 " join card c on p.cardid = c.cardid " +
-                " where   p.cardstatus >= 1 " +         // 0 - çàÿâêè;
-                                                        // 1 - àêòèâåí;
-                                                        // 3 - àğõèâíûé;
+                " where   p.cardstatus >= 1 " +         // 0 - Ã§Ã Ã¿Ã¢ÃªÃ¨;
+                                                        // 1 - Ã ÃªÃ²Ã¨Ã¢Ã¥Ã­;
+                                                        // 3 - Ã Ã°ÃµÃ¨Ã¢Ã­Ã»Ã©;
                 " and pr.depid = 781 " +
-                                                        // 780 Ãîñòåâîå ÀÎ "Ìåæäóğå÷üå"
-                                                        // 781 Ãîñòåâîå ÎÔ "Ìåæäóğå÷åíñêàÿ"
-                                                        // 779 Ãîñòåâîå ÓÊ "Şæíàÿ"
+                                                        // 780 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ Ã€Ã "ÃŒÃ¥Ã¦Ã¤Ã³Ã°Ã¥Ã·Ã¼Ã¥"
+                                                        // 781 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ ÃÃ” "ÃŒÃ¥Ã¦Ã¤Ã³Ã°Ã¥Ã·Ã¥Ã­Ã±ÃªÃ Ã¿"
+                                                        // 779 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ Ã“ÃŠ "ÃÃ¦Ã­Ã Ã¿"
                 " and p.passtype = 2 " +
-                                                        // 1 - ïîñòîÿííûå
-                                                        // 2 - âğåìåííûå
-                " and p.createdate between '01.02.2017' and '28.02.2017' " +
+                                                        // 1 - Ã¯Ã®Ã±Ã²Ã®Ã¿Ã­Ã­Ã»Ã¥
+                                                        // 2 - Ã¢Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã»Ã¥
+
+                " and p.createdate between '" + t2 + "' and '" + t21 + "' " +
                 " group by c.cardno ";
     }
-        // Çàïğîñ äëÿ åæåìåñÿ÷íîãî îò÷¸òà / ÓÊ Şæíàÿ
-    static String otchetUK(){
+        // Ã‡Ã Ã¯Ã°Ã®Ã± Ã¤Ã«Ã¿ Ã¥Ã¦Ã¥Ã¬Ã¥Ã±Ã¿Ã·Ã­Ã®Ã£Ã® Ã®Ã²Ã·Â¸Ã²Ã  / Ã“ÃŠ ÃÃ¦Ã­Ã Ã¿
+    static String otchetUK(String t2, String t21){
+
         return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
                 " from " +
                 " pass p " +
                 " join person pr on p.personid = pr.personid " +
                 " join dictvals d on pr.depid = d.dictvalid " +
                 " join card c on p.cardid = c.cardid " +
-                " where   p.cardstatus >= 1 " +         // 0 - çàÿâêè;
-                                                        // 1 - àêòèâåí;
-                                                        // 3 - àğõèâíûé;
+                " where   p.cardstatus >= 1 " +         // 0 - Ã§Ã Ã¿Ã¢ÃªÃ¨;
+                                                        // 1 - Ã ÃªÃ²Ã¨Ã¢Ã¥Ã­;
+                                                        // 3 - Ã Ã°ÃµÃ¨Ã¢Ã­Ã»Ã©;
                 " and pr.depid = 779 " +
-                                                        // 780 Ãîñòåâîå ÀÎ "Ìåæäóğå÷üå"
-                                                        // 781 Ãîñòåâîå ÎÔ "Ìåæäóğå÷åíñêàÿ"
-                                                        // 779 Ãîñòåâîå ÓÊ "Şæíàÿ"
+                                                        // 780 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ Ã€Ã "ÃŒÃ¥Ã¦Ã¤Ã³Ã°Ã¥Ã·Ã¼Ã¥"
+                                                        // 781 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ ÃÃ” "ÃŒÃ¥Ã¦Ã¤Ã³Ã°Ã¥Ã·Ã¥Ã­Ã±ÃªÃ Ã¿"
+                                                        // 779 ÃƒÃ®Ã±Ã²Ã¥Ã¢Ã®Ã¥ Ã“ÃŠ "ÃÃ¦Ã­Ã Ã¿"
                 " and p.passtype = 2 " +
-                                                        // 1 - ïîñòîÿííûå
-                                                        // 2 - âğåìåííûå
-                " and p.createdate between '01.02.2017' and '29.02.2017' " +
+                                                        // 1 - Ã¯Ã®Ã±Ã²Ã®Ã¿Ã­Ã­Ã»Ã¥
+                                                        // 2 - Ã¢Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã»Ã¥
+
+                " and p.createdate between '" + t2 + "' and '" + t21 + "' " +
+
                 " group by c.cardno ";
     }
 }
 
 
 
-// Òåëî çàïğîñà â ïåğâîé âêëàäêå.
+// Ã’Ã¥Ã«Ã® Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã¢ Ã¯Ã¥Ã°Ã¢Ã®Ã© Ã¢ÃªÃ«Ã Ã¤ÃªÃ¥.
 /* private String zap(String a, String tabZ, String b, String c){
- return "select  pr.docser, " +              // Ñåğèÿ ïàñïîğòà
- "        pr.docno, " +              // Íîìåğ ïàñïîğòà
- "        pr.name, " +               // Ôàìèëèÿ
- "        pr.firstname, " +          // Èìÿ
- "        pr.secondname, " +         // Îò÷åñòâî
- "        pr.tableno, " +            // Òàáåëüíûé íîìåğ
- "        p.createdate, " +          // Âğåìÿ âõîäà (ïîëó÷åíèÿ ãîñòåâîãî ïğîïóñêà)
- "        p.returndate " +           // Âğåìÿ âûõîäà (âîçâğàòà ãîñòåâîãî ïğîïóñêà)
+ return "select  pr.docser, " +              // Ã‘Ã¥Ã°Ã¨Ã¿ Ã¯Ã Ã±Ã¯Ã®Ã°Ã²Ã 
+ "        pr.docno, " +              // ÃÃ®Ã¬Ã¥Ã° Ã¯Ã Ã±Ã¯Ã®Ã°Ã²Ã 
+ "        pr.name, " +               // Ã”Ã Ã¬Ã¨Ã«Ã¨Ã¿
+ "        pr.firstname, " +          // ÃˆÃ¬Ã¿
+ "        pr.secondname, " +         // ÃÃ²Ã·Ã¥Ã±Ã²Ã¢Ã®
+ "        pr.tableno, " +            // Ã’Ã Ã¡Ã¥Ã«Ã¼Ã­Ã»Ã© Ã­Ã®Ã¬Ã¥Ã°
+ "        p.createdate, " +          // Ã‚Ã°Ã¥Ã¬Ã¿ Ã¢ÃµÃ®Ã¤Ã  (Ã¯Ã®Ã«Ã³Ã·Ã¥Ã­Ã¨Ã¿ Ã£Ã®Ã±Ã²Ã¥Ã¢Ã®Ã£Ã® Ã¯Ã°Ã®Ã¯Ã³Ã±ÃªÃ )
+ "        p.returndate " +           // Ã‚Ã°Ã¥Ã¬Ã¿ Ã¢Ã»ÃµÃ®Ã¤Ã  (Ã¢Ã®Ã§Ã¢Ã°Ã Ã²Ã  Ã£Ã®Ã±Ã²Ã¥Ã¢Ã®Ã£Ã® Ã¯Ã°Ã®Ã¯Ã³Ã±ÃªÃ )
  " from   doublepass p" +
  "        left join doubleperson pr on p.personid = pr.personid " +
  " where p.passtype " + a +
@@ -115,16 +121,16 @@ class Zapros {
  " and p.createdate > '"+ d +"' " +
  " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
  }*/
-// Òåëî çàïğîñà âî âòîğîé âêëàäêå.
+// Ã’Ã¥Ã«Ã® Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã¢Ã® Ã¢Ã²Ã®Ã°Ã®Ã© Ã¢ÃªÃ«Ã Ã¤ÃªÃ¥.
 /*private String zap2(String b2, String c2, String a2){
- return " select  person.tableno, " +         // Òàáåëüíûé íîìåğ
- " person.name, " +                    // Ôàìèëèÿ
- " person.firstname, " +               // Èìÿ
- " person.secondname, " +              // Îò÷åñòâî
- " sourcedev.name, " +                 // Íàçâàíèå óñòğîéñòâà
- " dept.department, " +                // Ïîäğàçäåëåíèå
- " bmsg.datetime, " +                  // Âğåìÿ ñîáûòèÿ
- " person.post_name " +                // Äîëæíîñòü
+ return " select  person.tableno, " +         // Ã’Ã Ã¡Ã¥Ã«Ã¼Ã­Ã»Ã© Ã­Ã®Ã¬Ã¥Ã°
+ " person.name, " +                    // Ã”Ã Ã¬Ã¨Ã«Ã¨Ã¿
+ " person.firstname, " +               // ÃˆÃ¬Ã¿
+ " person.secondname, " +              // ÃÃ²Ã·Ã¥Ã±Ã²Ã¢Ã®
+ " sourcedev.name, " +                 // ÃÃ Ã§Ã¢Ã Ã­Ã¨Ã¥ Ã³Ã±Ã²Ã°Ã®Ã©Ã±Ã²Ã¢Ã 
+ " dept.department, " +                // ÃÃ®Ã¤Ã°Ã Ã§Ã¤Ã¥Ã«Ã¥Ã­Ã¨Ã¥
+ " bmsg.datetime, " +                  // Ã‚Ã°Ã¥Ã¬Ã¿ Ã±Ã®Ã¡Ã»Ã²Ã¨Ã¿
+ " person.post_name " +                // Ã„Ã®Ã«Ã¦Ã­Ã®Ã±Ã²Ã¼
 
  " from person " +
  " left join dept on dept.depid = person.depid " +
