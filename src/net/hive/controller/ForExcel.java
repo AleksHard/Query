@@ -88,7 +88,7 @@ class ForExcel {
         style.setWrapText(true);
         XSSFCellStyle styleHead = workbook.createCellStyle();
         styleHead.setAlignment(HorizontalAlignment.CENTER_SELECTION);
-        styleHead.fo
+        //styleHead.fo
         int c=1;
         XSSFRow row;
         Pojo pojo;
@@ -162,6 +162,59 @@ class ForExcel {
             XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(style);
             XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(style);
         // Тело таблицы
+        for(int j = 0; j < nColumnCount; j++){
+            pojo = data.get(j);
+            row = sheet.createRow(c+1);
+            XSSFCell cel0 = row.createCell(0);cel0.setCellValue(c);                 cel0.setCellStyle(style);
+            XSSFCell cel1 = row.createCell(1);cel1.setCellValue(pojo.getSerpas());  cel1.setCellStyle(style);
+            XSSFCell cel2 = row.createCell(2);cel2.setCellValue(pojo.getNomer());   cel2.setCellStyle(style);
+            XSSFCell cel3 = row.createCell(3);cel3.setCellValue(pojo.getFamil());   cel3.setCellStyle(style);
+            XSSFCell cel4 = row.createCell(4);cel4.setCellValue(pojo.getName());    cel4.setCellStyle(style);
+            c++;
+        }
+        XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
+        XSSFCell cell = lastRow.createCell(0);
+        cell.setCellValue("Итого: " + nColumnCount);
+        try(FileOutputStream out = new FileOutputStream((new File(file)))){
+            workbook.write(out);
+        }   catch (IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("Excel файл успешно создан!");
+        System.out.println("Размер pojo = " + nColumnCount);
+    }
+    // Отчёт по УК Южная
+    static void otchetUK(String file, ObservableList<Pojo> data)throws IOException, NullPointerException {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("УК Южная");
+        int nColumnCount = data.size();                 // Количество строк в запросе
+        int c=1;
+        XSSFRow row;
+        Pojo pojo;
+        sheet.setColumnWidth(3,800*15);
+        sheet.setColumnWidth(4,600*10);
+        // Стили ячеек
+        XSSFCellStyle style = workbook.createCellStyle();
+        style.setBorderBottom(THIN);
+        style.setBorderLeft(THIN);
+        style.setBorderRight(THIN);
+        style.setBorderTop(THIN);
+        style.setVerticalAlignment(CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        style.setWrapText(true);
+        // Шапка
+        XSSFRow shapka = sheet.createRow((short)0);
+        XSSFCell golova = shapka.createCell((short)0);
+        golova.setCellValue("Отчёт по УК Южная");
+        sheet.addMergedRegion(CellRangeAddress.valueOf("A1:E1"));
+        // Заголовок таблицы
+        XSSFRow zagolovok = sheet.createRow(1);
+        XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("№ п/п");            zag0.setCellStyle(style);
+        XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("Серия карты");       zag1.setCellStyle(style);
+        XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("Номер карты");       zag2.setCellStyle(style);
+        XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(style);
+        XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(style);
+        // Тело таблицы
         for(int i = 0; i < nColumnCount; i++){
             pojo = data.get(i);
             row = sheet.createRow(c+1);
@@ -172,6 +225,9 @@ class ForExcel {
             XSSFCell cel4 = row.createCell(4);cel4.setCellValue(pojo.getName());    cel4.setCellStyle(style);
             c++;
         }
+        XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
+        XSSFCell cell = lastRow.createCell(0);
+        cell.setCellValue("Итого: " + nColumnCount);
         try(FileOutputStream out = new FileOutputStream((new File(file)))){
             workbook.write(out);
         }   catch (IOException e){
@@ -180,7 +236,6 @@ class ForExcel {
         System.out.println("Excel файл успешно создан!");
         System.out.println("Размер pojo = " + nColumnCount);
     }
-
 
 
 }

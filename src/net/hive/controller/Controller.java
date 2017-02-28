@@ -1,6 +1,7 @@
 package net.hive.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -249,15 +250,17 @@ public class Controller {
     }
     // Отчёт по фабрике
     private String a3 = null; private Integer b3 = null;  private String c3 = null;  private String d3 = null;
-    private void baza3() {
+    private void baza3(String test) {
         try { // Создаём соединение с БД
+
             st = "BST";
             Connection conn = getConnection();
             // Проверяем, есть-ли соединение.
             assert conn != null;
             Statement stmt = conn.createStatement();
             // Тело SQL Запроса
-            String strSQL = Zapros.otchetOF();    //String strSQL = zap2(zb2,zc2,za2);
+            String strSQL = test;
+            //String strSQL = Zapros.otchetOF();
             strSQL = strSQL.toUpperCase();
             // Выполняем SQL запрос.
             ResultSet rs = stmt.executeQuery(strSQL);
@@ -321,9 +324,44 @@ public class Controller {
     public void exWordButton1() {
     }
     public void exOtchetOFButton() throws IOException, NullPointerException  {
-        System.out.println(Zapros.otchetOF());
+        System.out.println(Zapros.otchetOF(t2, t21));
+        // Чистим коллекцию от данных
+        pojoData.removeAll(pojoData);
         String a = "./queryFabrika.xlsx";
-        baza3();
+        LocalDate d2 = dataDate.getValue();                // Вводим дату начала поиска
+        if (d2 == null){
+            d2 = LocalDate.now();
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);}
+        t2 = formatter.format(d2);
+        LocalDate e2 = dataDate1.getValue();               // Вводим дату кончала поиска :-)
+        if (e2 == null){e2 = time;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);}
+        e2 = e2.plusDays(1);
+        t21 = formatter.format(e2);
+        baza3(Zapros.otchetOF(t2, t21));
         ForExcel.otchetOF(a,pojoData);
+    }
+
+    public void exOtchetUKButton() throws IOException, NullPointerException {
+        System.out.println(Zapros.otchetUK(t2, t21));
+        // Чистим коллекцию от данных
+        pojoData.removeAll(pojoData);
+        String a = "./queryUzhnaya.xlsx";
+        LocalDate d2 = dataDate.getValue();                // Вводим дату начала поиска
+        if (d2 == null){
+            d2 = LocalDate.now();
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);}
+        t2 = formatter.format(d2);
+        LocalDate e2 = dataDate1.getValue();               // Вводим дату кончала поиска :-)
+        if (e2 == null){e2 = time;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);}
+        e2 = e2.plusDays(1);
+        t21 = formatter.format(e2);
+        baza3(Zapros.otchetUK(t2, t21));
+        ForExcel.otchetUK(a,pojoData);
     }
 }

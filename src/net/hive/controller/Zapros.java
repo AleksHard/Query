@@ -50,7 +50,7 @@ class Zapros {
                 " and person.orgid = 28";
     }
         // Запрос для ежемесячного отчёта / Фабрика
-    static String otchetOF(){
+    static String otchetOF(String t2, String t21){
         return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
                 " from " +
                 " pass p " +
@@ -67,11 +67,11 @@ class Zapros {
                 " and p.passtype = 2 " +
                                                         // 1 - постоянные
                                                         // 2 - временные
-                " and p.createdate between '01.02.2017' and '28.02.2017' " +
+                " and p.createdate between '" + t2 + "' and '" + t21 + "' " +
                 " group by c.cardno ";
     }
         // Запрос для ежемесячного отчёта / УК Южная
-    static String otchetUK(){
+    static String otchetUK(String t2, String t21){
         return  "select c.cardno, max(c.sitecode), max(d.corp_code), max(p.createdate) " +
                 " from " +
                 " pass p " +
@@ -88,7 +88,7 @@ class Zapros {
                 " and p.passtype = 2 " +
                                                         // 1 - постоянные
                                                         // 2 - временные
-                " and p.createdate between '01.02.2017' and '29.02.2017' " +
+                " and p.createdate between '" + t2 + "' and '" + t21 + "' " +
                 " group by c.cardno ";
     }
 }
