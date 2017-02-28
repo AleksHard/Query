@@ -96,6 +96,7 @@ public class Controller {
         st ="BST";
         c = this.famId.getText();               // ¬водим ‘амилию
         d = dataDate.getValue();                // ¬водим дату начала поиска
+        famId2.setText(c);                      // ѕеремещаем введЄную фамилию во вторую вкладку
         if (d == null){
             String dat = f.format(formatter);
             dataDate.setPromptText(dat);
@@ -131,6 +132,7 @@ public class Controller {
         za2 = ">=1";                               // 1 - посто€нные, 2 - временные
         st = "bprot";
         zc2 = famId2.getText();                    // ¬водим ‘амилию
+        famId.setText(zc2);                        // ѕеремещаем введЄную фамилию в первую вкладку
         if (tablo2.getText().isEmpty()){
             zb2 = ">=1";
         }else{zb2 = "="+ tablo2.getText();}                 // ¬водим табельный номер

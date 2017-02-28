@@ -16,7 +16,7 @@ public class Pojo {
     private String devOut;
     private int nomer;
 
-    Pojo (String serpas, int nomer, String famil, String name){
+    Pojo(String serpas, int nomer, String famil, String name){
         this.serpas = serpas;
         this.nomer = nomer;
         this.famil = famil;
