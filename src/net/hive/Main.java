@@ -12,7 +12,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/net/hive/views/main.fxml"));
-        primaryStage.setTitle("Çàïðîñû v1.4.3");
+
+        primaryStage.setTitle("Ã‡Ã Ã¯Ã°Ã®Ã±Ã» v1.4.3");
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.getIcons().add(new Image("/net/hive/agent002.png"));

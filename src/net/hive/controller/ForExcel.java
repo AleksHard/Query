@@ -6,21 +6,20 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import static org.apache.poi.ss.usermodel.BorderStyle.MEDIUM;
 import static org.apache.poi.ss.usermodel.BorderStyle.THIN;
 import static org.apache.poi.ss.usermodel.VerticalAlignment.CENTER;
 
 /**
  * Created by kharlashkin on 20.02.2017.
- * Класс для управления Excel файлом (файлами).
+ * РљР»Р°СЃСЃ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ Excel С„Р°Р№Р»РѕРј (С„Р°Р№Р»Р°РјРё).
  */
 class ForExcel {
-    // Создаём файл
-    // Экспорт в первой вкладке
+    // РЎРѕР·РґР°С‘Рј С„Р°Р№Р»
+    // Р­РєСЃРїРѕСЂС‚ РІ РїРµСЂРІРѕР№ РІРєР»Р°РґРєРµ
     static void wrightToExcel1(String file, ObservableList<Pojo> data) throws IOException, NullPointerException {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Вкладка1");
-        int nColumnCount = data.size();             // Количество колонок в запросе
+        XSSFSheet sheet = workbook.createSheet("Р’РєР»Р°РґРєР°1");
+        int nColumnCount = data.size();             // РљРѕР»РёС‡РµСЃС‚РІРѕ РєРѕР»РѕРЅРѕРє РІ Р·Р°РїСЂРѕСЃРµ
         // CellStyle style = sheet.getWorkbook().createCellStyle();
 
         sheet.setDefaultColumnWidth(17);
@@ -37,14 +36,14 @@ class ForExcel {
         XSSFRow row;
         Pojo pojo;
         XSSFRow zagolovok = sheet.createRow(1);
-        XSSFCell zag0 = zagolovok.createCell(0); zag0.setCellValue("Серия паспорта");       zag0.setCellStyle(style);
-        XSSFCell zag1 = zagolovok.createCell(1); zag1.setCellValue("Номер паспорта");       zag1.setCellStyle(style);
-        XSSFCell zag2 = zagolovok.createCell(2); zag2.setCellValue("Фамилия");              zag2.setCellStyle(style);
-        XSSFCell zag3 = zagolovok.createCell(3); zag3.setCellValue("Имя");                  zag3.setCellStyle(style);
-        XSSFCell zag4 = zagolovok.createCell(4); zag4.setCellValue("Отчество");             zag4.setCellStyle(style);
-        XSSFCell zag5 = zagolovok.createCell(5); zag5.setCellValue("Табельный номер");      zag5.setCellStyle(style);
-        XSSFCell zag6 = zagolovok.createCell(6); zag6.setCellValue("Выдача пропуска");      zag6.setCellStyle(style);
-        XSSFCell zag7 = zagolovok.createCell(7); zag7.setCellValue("Изъятие пропуска");     zag7.setCellStyle(style);
+        XSSFCell zag0 = zagolovok.createCell(0); zag0.setCellValue("РЎРµСЂРёСЏ РїР°СЃРїРѕСЂС‚Р°");       zag0.setCellStyle(style);
+        XSSFCell zag1 = zagolovok.createCell(1); zag1.setCellValue("РќРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°");       zag1.setCellStyle(style);
+        XSSFCell zag2 = zagolovok.createCell(2); zag2.setCellValue("Р¤Р°РјРёР»РёСЏ");              zag2.setCellStyle(style);
+        XSSFCell zag3 = zagolovok.createCell(3); zag3.setCellValue("РРјСЏ");                  zag3.setCellStyle(style);
+        XSSFCell zag4 = zagolovok.createCell(4); zag4.setCellValue("РћС‚С‡РµСЃС‚РІРѕ");             zag4.setCellStyle(style);
+        XSSFCell zag5 = zagolovok.createCell(5); zag5.setCellValue("РўР°Р±РµР»СЊРЅС‹Р№ РЅРѕРјРµСЂ");      zag5.setCellStyle(style);
+        XSSFCell zag6 = zagolovok.createCell(6); zag6.setCellValue("Р’С‹РґР°С‡Р° РїСЂРѕРїСѓСЃРєР°");      zag6.setCellStyle(style);
+        XSSFCell zag7 = zagolovok.createCell(7); zag7.setCellValue("РР·СЉСЏС‚РёРµ РїСЂРѕРїСѓСЃРєР°");     zag7.setCellStyle(style);
         for(int i = 0; i < nColumnCount; i++){
             pojo = data.get(i);
             row = sheet.createRow(c+1);
@@ -60,24 +59,24 @@ class ForExcel {
         }
         XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
         XSSFCell cell = lastRow.createCell(0);
-        cell.setCellValue("Итого: " + nColumnCount);
+        cell.setCellValue("РС‚РѕРіРѕ: " + nColumnCount);
         try(FileOutputStream out = new FileOutputStream((new File(file)))){
             workbook.write(out);
         }   catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Excel файл успешно создан!");
-        System.out.println("Размер даты = " + nColumnCount);
+        System.out.println("Excel С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ!");
+        System.out.println("Р Р°Р·РјРµСЂ РґР°С‚С‹ = " + nColumnCount);
     }
-    // Экспорт во второй вкладке
+    // Р­РєСЃРїРѕСЂС‚ РІРѕ РІС‚РѕСЂРѕР№ РІРєР»Р°РґРєРµ
     static void wrightToExcel2(String file, ObservableList<Pojo> data) throws IOException, NullPointerException {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Вкладка2");
-        int nColumnCount = data.size();             // Количество колонок в запросе
+        XSSFSheet sheet = workbook.createSheet("Р’РєР»Р°РґРєР°2");
+        int nColumnCount = data.size();             // РљРѕР»РёС‡РµСЃС‚РІРѕ РєРѕР»РѕРЅРѕРє РІ Р·Р°РїСЂРѕСЃРµ
         //sheet.setColumnWidth(0,500*25);
         //sheet.setColumnWidth(4,600*10);
         sheet.setDefaultColumnWidth(17);
-        // Стили ячеек
+        // РЎС‚РёР»Рё СЏС‡РµРµРє
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderBottom(THIN);
         style.setBorderLeft(THIN);
@@ -92,21 +91,21 @@ class ForExcel {
         int c=1;
         XSSFRow row;
         Pojo pojo;
-        // Шапка
+        // РЁР°РїРєР°
         XSSFRow shapka = sheet.createRow((short)0);
         XSSFCell golova = shapka.createCell((short)0);
-        golova.setCellValue("Выборка по проходам");
+        golova.setCellValue("Р’С‹Р±РѕСЂРєР° РїРѕ РїСЂРѕС…РѕРґР°Рј");
         sheet.addMergedRegion(CellRangeAddress.valueOf("A1:G1"));
-        // Заголовок таблицы
+        // Р—Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹
         XSSFRow zagolovok = sheet.createRow(1);
-            XSSFCell zag0 = zagolovok.createCell(0); zag0.setCellValue("Табельный номер");   zag0.setCellStyle(style);
-            XSSFCell zag1 = zagolovok.createCell(1); zag1.setCellValue("Фамилия");           zag1.setCellStyle(style);
-            XSSFCell zag2 = zagolovok.createCell(2); zag2.setCellValue("Имя");               zag2.setCellStyle(style);
-            XSSFCell zag3 = zagolovok.createCell(3); zag3.setCellValue("Отчество");          zag3.setCellStyle(style);
-            XSSFCell zag4 = zagolovok.createCell(4); zag4.setCellValue("Подразделение");     zag4.setCellStyle(style);
-            XSSFCell zag5 = zagolovok.createCell(5); zag5.setCellValue("Точка прохода");     zag5.setCellStyle(style);
-            XSSFCell zag6 = zagolovok.createCell(6); zag6.setCellValue("Время прохода");     zag6.setCellStyle(style);
-        // Тело таблицы
+            XSSFCell zag0 = zagolovok.createCell(0); zag0.setCellValue("РўР°Р±РµР»СЊРЅС‹Р№ РЅРѕРјРµСЂ");   zag0.setCellStyle(style);
+            XSSFCell zag1 = zagolovok.createCell(1); zag1.setCellValue("Р¤Р°РјРёР»РёСЏ");           zag1.setCellStyle(style);
+            XSSFCell zag2 = zagolovok.createCell(2); zag2.setCellValue("РРјСЏ");               zag2.setCellStyle(style);
+            XSSFCell zag3 = zagolovok.createCell(3); zag3.setCellValue("РћС‚С‡РµСЃС‚РІРѕ");          zag3.setCellStyle(style);
+            XSSFCell zag4 = zagolovok.createCell(4); zag4.setCellValue("РџРѕРґСЂР°Р·РґРµР»РµРЅРёРµ");     zag4.setCellStyle(style);
+            XSSFCell zag5 = zagolovok.createCell(5); zag5.setCellValue("РўРѕС‡РєР° РїСЂРѕС…РѕРґР°");     zag5.setCellStyle(style);
+            XSSFCell zag6 = zagolovok.createCell(6); zag6.setCellValue("Р’СЂРµРјСЏ РїСЂРѕС…РѕРґР°");     zag6.setCellStyle(style);
+        // РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
         for(int i = 0; i < nColumnCount; i++){
             pojo = data.get(i);
             row = sheet.createRow(c+1);
@@ -121,26 +120,26 @@ class ForExcel {
         }
         XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
         XSSFCell cell = lastRow.createCell(0);
-        cell.setCellValue("Итого проходов: " + nColumnCount);
+        cell.setCellValue("РС‚РѕРіРѕ РїСЂРѕС…РѕРґРѕРІ: " + nColumnCount);
         try(FileOutputStream out = new FileOutputStream((new File(file)))){
             workbook.write(out);
         }   catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Excel файл успешно создан!");
-        System.out.println("Размер даты = " + nColumnCount);
+        System.out.println("Excel С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ!");
+        System.out.println("Р Р°Р·РјРµСЂ РґР°С‚С‹ = " + nColumnCount);
     }
-    // Отчёт по Фабрике
+    // РћС‚С‡С‘С‚ РїРѕ Р¤Р°Р±СЂРёРєРµ
     static void otchetOF(String file, ObservableList<Pojo> data)throws IOException, NullPointerException {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Фабрика");
-        int nColumnCount = data.size();                 // Количество строк в запросе
+        XSSFSheet sheet = workbook.createSheet("Р¤Р°Р±СЂРёРєР°");
+        int nColumnCount = data.size();                 // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РІ Р·Р°РїСЂРѕСЃРµ
         int c=1;
         XSSFRow row;
         Pojo pojo;
         sheet.setColumnWidth(3,800*15);
         sheet.setColumnWidth(4,600*10);
-        // Стили ячеек
+        // РЎС‚РёР»Рё СЏС‡РµРµРє
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderBottom(THIN);
         style.setBorderLeft(THIN);
@@ -149,19 +148,19 @@ class ForExcel {
         style.setVerticalAlignment(CENTER);
         style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         style.setWrapText(true);
-        // Шапка
+        // РЁР°РїРєР°
         XSSFRow shapka = sheet.createRow((short)0);
         XSSFCell golova = shapka.createCell((short)0);
-        golova.setCellValue("Отчёт по ОФ 'Междуреченская'");
+        golova.setCellValue("РћС‚С‡С‘С‚ РїРѕ РћР¤ 'РњРµР¶РґСѓСЂРµС‡РµРЅСЃРєР°СЏ'");
         sheet.addMergedRegion(CellRangeAddress.valueOf("A1:E1"));
-        // Заголовок таблицы
+        // Р—Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹
         XSSFRow zagolovok = sheet.createRow(1);
-            XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("№ п/п");            zag0.setCellStyle(style);
-            XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("Серия карты");       zag1.setCellStyle(style);
-            XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("Номер карты");       zag2.setCellStyle(style);
-            XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(style);
-            XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(style);
-        // Тело таблицы
+            XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("в„– Рї/Рї");            zag0.setCellStyle(style);
+            XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("РЎРµСЂРёСЏ РєР°СЂС‚С‹");       zag1.setCellStyle(style);
+            XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("РќРѕРјРµСЂ РєР°СЂС‚С‹");       zag2.setCellStyle(style);
+            XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("РџРѕРґСЂР°Р·РґРµР»РµРЅРёРµ");     zag3.setCellStyle(style);
+            XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ");     zag4.setCellStyle(style);
+        // РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
         for(int j = 0; j < nColumnCount; j++){
             pojo = data.get(j);
             row = sheet.createRow(c+1);
@@ -174,26 +173,26 @@ class ForExcel {
         }
         XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
         XSSFCell cell = lastRow.createCell(0);
-        cell.setCellValue("Итого: " + nColumnCount);
+        cell.setCellValue("РС‚РѕРіРѕ: " + nColumnCount);
         try(FileOutputStream out = new FileOutputStream((new File(file)))){
             workbook.write(out);
         }   catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Excel файл успешно создан!");
-        System.out.println("Размер pojo = " + nColumnCount);
+        System.out.println("Excel С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ!");
+        System.out.println("Р Р°Р·РјРµСЂ pojo = " + nColumnCount);
     }
-    // Отчёт по УК Южная
+    // РћС‚С‡С‘С‚ РїРѕ РЈРљ Р®Р¶РЅР°СЏ
     static void otchetUK(String file, ObservableList<Pojo> data)throws IOException, NullPointerException {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("УК Южная");
-        int nColumnCount = data.size();                 // Количество строк в запросе
+        XSSFSheet sheet = workbook.createSheet("РЈРљ Р®Р¶РЅР°СЏ");
+        int nColumnCount = data.size();                 // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РІ Р·Р°РїСЂРѕСЃРµ
         int c=1;
         XSSFRow row;
         Pojo pojo;
         sheet.setColumnWidth(3,800*15);
         sheet.setColumnWidth(4,600*10);
-        // Стили ячеек
+        // РЎС‚РёР»Рё СЏС‡РµРµРє
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderBottom(THIN);
         style.setBorderLeft(THIN);
@@ -202,19 +201,19 @@ class ForExcel {
         style.setVerticalAlignment(CENTER);
         style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         style.setWrapText(true);
-        // Шапка
+        // РЁР°РїРєР°
         XSSFRow shapka = sheet.createRow((short)0);
         XSSFCell golova = shapka.createCell((short)0);
-        golova.setCellValue("Отчёт по УК Южная");
+        golova.setCellValue("РћС‚С‡С‘С‚ РїРѕ РЈРљ Р®Р¶РЅР°СЏ");
         sheet.addMergedRegion(CellRangeAddress.valueOf("A1:E1"));
-        // Заголовок таблицы
+        // Р—Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹
         XSSFRow zagolovok = sheet.createRow(1);
-        XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("№ п/п");            zag0.setCellStyle(style);
-        XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("Серия карты");       zag1.setCellStyle(style);
-        XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("Номер карты");       zag2.setCellStyle(style);
-        XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(style);
-        XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(style);
-        // Тело таблицы
+        XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("в„– Рї/Рї");            zag0.setCellStyle(style);
+        XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("РЎРµСЂРёСЏ РєР°СЂС‚С‹");       zag1.setCellStyle(style);
+        XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("РќРѕРјРµСЂ РєР°СЂС‚С‹");       zag2.setCellStyle(style);
+        XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("РџРѕРґСЂР°Р·РґРµР»РµРЅРёРµ");     zag3.setCellStyle(style);
+        XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ");     zag4.setCellStyle(style);
+        // РўРµР»Рѕ С‚Р°Р±Р»РёС†С‹
         for(int i = 0; i < nColumnCount; i++){
             pojo = data.get(i);
             row = sheet.createRow(c+1);
@@ -227,14 +226,14 @@ class ForExcel {
         }
         XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
         XSSFCell cell = lastRow.createCell(0);
-        cell.setCellValue("Итого: " + nColumnCount);
+        cell.setCellValue("РС‚РѕРіРѕ: " + nColumnCount);
         try(FileOutputStream out = new FileOutputStream((new File(file)))){
             workbook.write(out);
         }   catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Excel файл успешно создан!");
-        System.out.println("Размер pojo = " + nColumnCount);
+        System.out.println("Excel С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ!");
+        System.out.println("Р Р°Р·РјРµСЂ pojo = " + nColumnCount);
     }
 
 

@@ -110,7 +110,9 @@
                      <MenuItem fx:id="exExcel1" mnemonicParsing="false" onAction="#exExcelButton1" text="Excel        " />
                      <MenuItem fx:id="exWord1" disable="true" mnemonicParsing="false" onAction="#exWordButton1" text="Word" />
                      <MenuItem mnemonicParsing="false" onAction="#exOtchetOFButton" text="Отчёт Фабрика" />
+
                      <MenuItem mnemonicParsing="false" onAction="#exOtchetUKButton" text="Отчёт УК Южная" />
+
                   </items>
                   <font>
                      <Font size="13.0" />
