@@ -129,6 +129,7 @@ public class Controller {
         tableUsers.setItems(pojoData);              // Заполняем таблицу данными
     }
     @FXML   // Кнопка "Найти", второй вкладки
+
     public void onClickMethod2() {
         za2 = ">=1";                               // 1 - постоянные, 2 - временные
         st = "bprot";
@@ -302,8 +303,8 @@ public class Controller {
                 //String url = "jdbc:firebirdsql:localhost/3050:D:/Bastion/DB_for_reports/BD/BASTION.GDB";
                 // Данные для соединения с БД
                 Properties prop = new Properties();
-                prop.setProperty("user", "user");
-                prop.setProperty("password", "password");
+                prop.setProperty("user", "APP_ADMIN");
+                prop.setProperty("password", "!a2345678");
                 return DriverManager.getConnection(url, prop);
             }
 
@@ -317,16 +318,15 @@ public class Controller {
         String a = "./queryGo.xlsx";
         ForExcel.wrightToExcel2(a,pojoData2);
     }
-    //public void exWordButton() {
-    //}
+
     public void exWordButton2() {
     }
     public void exWordButton1() {
     }
 
-    public static String tt2=null;
-    public static String tt21=null;         // На вывод пользователю
-    public static String ttt21=null;        // В заброс в БАЗУ
+    static String tt2=null;          // Дата начала
+    static String tt21=null;         // На вывод пользователю (Дата конца)
+    private static String ttt21=null;        // В запрос в БАЗУ      (Дата конца)
     public void exOtchetOFButton() throws IOException, NullPointerException  {
         // Чистим коллекцию от данных
         pojoData.removeAll(pojoData);
@@ -350,9 +350,9 @@ public class Controller {
         e2 = e2.plusDays(1);
         ttt21 = formatter.format(e2);}
         System.out.println(Zapros.otchetOF(tt2, ttt21));
-        baza3(Zapros.otchetOF(tt2, ttt21));
-        ForExcel.otchetOF(a,pojoData);
-        pojoData.removeAll(pojoData);
+        baza3(Zapros.otchetOF(tt2, ttt21));                 // Вызываем метод запроса к БД.
+        ForExcel.otchetOF(a,pojoData);                      // Вызываем метод для записи данных в файл "queryFabrika.xlsx"
+        pojoData.removeAll(pojoData);                       // Чистим коллекцию, чтоб не отображался мусор в таблице приложения
     }
     public void exOtchetUKButton() throws IOException, NullPointerException {
         // Чистим коллекцию от данных
@@ -380,6 +380,6 @@ public class Controller {
         System.out.println(Zapros.otchetUK(tt2, ttt21));
         baza3(Zapros.otchetUK(tt2, ttt21));
         ForExcel.otchetUK(a,pojoData);
-        pojoData.removeAll(pojoData);
+        pojoData.removeAll(pojoData);       // Чистим коллекцию, чтоб не отображался мусор в таблице приложения
     }
 }
