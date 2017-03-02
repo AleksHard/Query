@@ -45,3 +45,7 @@ v 1.0
 ScreenShots:
 
 ![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query1.png)
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query11.png)
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query2.png)
