@@ -41,3 +41,7 @@ v 1.0
 - Добавлена возможность выбора даты поиска
 - Добавлен счётчик строк
 - Корректное отображение последней колонки во второй вкладке.
+
+ScreenShots:
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query1.png)
