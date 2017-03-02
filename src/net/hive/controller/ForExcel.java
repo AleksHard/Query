@@ -6,23 +6,24 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static org.apache.poi.ss.usermodel.BorderStyle.MEDIUM;
 import static org.apache.poi.ss.usermodel.BorderStyle.THIN;
 import static org.apache.poi.ss.usermodel.VerticalAlignment.CENTER;
+import static org.apache.poi.ss.usermodel.VerticalAlignment.forInt;
 
 /**
  * Created by kharlashkin on 20.02.2017.
  * Класс для управления Excel файлом (файлами).
  */
 class ForExcel {
-    // Создаём файл
     // Экспорт в первой вкладке
     static void wrightToExcel1(String file, ObservableList<Pojo> data) throws IOException, NullPointerException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Вкладка1");
         int nColumnCount = data.size();             // Количество колонок в запросе
-        // CellStyle style = sheet.getWorkbook().createCellStyle();
-
         sheet.setDefaultColumnWidth(17);
+
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderBottom(THIN);
         style.setBorderLeft(THIN);
@@ -32,6 +33,12 @@ class ForExcel {
         //style.setAlignment(HorizontalAlignment.CENTER);
         style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         style.setWrapText(true);
+        // Шапка
+        XSSFRow shapka = sheet.createRow((short)0);
+        XSSFCell golova = shapka.createCell((short)0);
+        golova.setCellValue("Выборка");
+        sheet.addMergedRegion(CellRangeAddress.valueOf("A1:H1"));
+
         int c=1;
         XSSFRow row;
         Pojo pojo;
@@ -139,12 +146,28 @@ class ForExcel {
         Pojo pojo;
         sheet.setColumnWidth(3,800*15);
         sheet.setColumnWidth(4,600*10);
+        // Create a new font
+        XSSFFont font = workbook.createFont();
+        font.setFontHeight(15);
+        // Стили заголовка листа
+        XSSFCellStyle styleList = workbook.createCellStyle();
+        styleList.setVerticalAlignment(CENTER);
+        styleList.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        styleList.setFont(font);
+        styleList.setWrapText(true);
+        //styleList.setWrapText(true);
+        // Стили заголовка таблицы
+        XSSFCellStyle styleZag = workbook.createCellStyle();
+        styleZag.setBorderTop(MEDIUM);
+        styleZag.setBorderLeft(MEDIUM);
+        styleZag.setBorderRight(MEDIUM);
+        styleZag.setBorderBottom(MEDIUM);
+        styleZag.setVerticalAlignment(CENTER);
+        styleZag.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        styleZag.setWrapText(true);
         // Стили ячеек
         XSSFCellStyle style = workbook.createCellStyle();
-        style.setBorderBottom(THIN);
-        style.setBorderLeft(THIN);
-        style.setBorderRight(THIN);
-        style.setBorderTop(THIN);
+        style.setBorderBottom(THIN);    style.setBorderLeft(THIN);  style.setBorderRight(THIN);
         style.setVerticalAlignment(CENTER);
         style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         style.setWrapText(true);
@@ -154,22 +177,33 @@ class ForExcel {
         golova.setCellValue("Отчёт об использовании гостевых карт на ОФ 'Междуреченская'" +
                 " за период с " + Controller.tt2 + " по " + Controller.tt21);
         sheet.addMergedRegion(CellRangeAddress.valueOf("A1:E1"));
+        golova.setCellStyle(styleList);
         // Заголовок таблицы
         XSSFRow zagolovok = sheet.createRow(1);
-            XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("№ п/п");            zag0.setCellStyle(style);
-            XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("Серия карты");       zag1.setCellStyle(style);
-            XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("Номер карты");       zag2.setCellStyle(style);
-            XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(style);
-            XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(style);
+            XSSFCell zag0 = zagolovok.createCell(0);zag0.setCellValue("№ п/п");            zag0.setCellStyle(styleZag);
+            XSSFCell zag1 = zagolovok.createCell(1);zag1.setCellValue("Серия карты");       zag1.setCellStyle(styleZag);
+            XSSFCell zag2 = zagolovok.createCell(2);zag2.setCellValue("Номер карты");       zag2.setCellStyle(styleZag);
+            XSSFCell zag3 = zagolovok.createCell(3);zag3.setCellValue("Подразделение");     zag3.setCellStyle(styleZag);
+            XSSFCell zag4 = zagolovok.createCell(4);zag4.setCellValue("Дата создания");     zag4.setCellStyle(styleZag);
         // Тело таблицы
-        for(int j = 0; j < nColumnCount; j++){
-            pojo = data.get(j);
-            row = sheet.createRow(c+1);
-            XSSFCell cel0 = row.createCell(0);cel0.setCellValue(c);                 cel0.setCellStyle(style);
-            XSSFCell cel1 = row.createCell(1);cel1.setCellValue(pojo.getSerpas());  cel1.setCellStyle(style);
-            XSSFCell cel2 = row.createCell(2);cel2.setCellValue(pojo.getNomer());   cel2.setCellStyle(style);
-            XSSFCell cel3 = row.createCell(3);cel3.setCellValue(pojo.getFamil());   cel3.setCellStyle(style);
-            XSSFCell cel4 = row.createCell(4);cel4.setCellValue(pojo.getName());    cel4.setCellStyle(style);
+        for (Pojo aData : data) {
+            pojo = aData;
+            row = sheet.createRow(c + 1);
+            XSSFCell cel0 = row.createCell(0);
+            cel0.setCellValue(c);
+            cel0.setCellStyle(style);
+            XSSFCell cel1 = row.createCell(1);
+            cel1.setCellValue(pojo.getSerpas());
+            cel1.setCellStyle(style);
+            XSSFCell cel2 = row.createCell(2);
+            cel2.setCellValue(pojo.getNomer());
+            cel2.setCellStyle(style);
+            XSSFCell cel3 = row.createCell(3);
+            cel3.setCellValue(pojo.getFamil());
+            cel3.setCellStyle(style);
+            XSSFCell cel4 = row.createCell(4);
+            cel4.setCellValue(pojo.getName());
+            cel4.setCellStyle(style);
             c++;
         }
         XSSFRow lastRow = sheet.createRow(nColumnCount + 2);
