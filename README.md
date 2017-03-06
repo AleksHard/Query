@@ -44,7 +44,7 @@ v 1.0
 
 NOTICE:
 This shit has gathered with the help of Ant.
-Because, I don't know how using Gradle or Maven ¯\_(ツ)_/¯
+Because, I don't know how using Gradle or Maven ¯\_(ツ)_/¯ 
 
 ScreenShots:
 
@@ -55,4 +55,4 @@ ScreenShots:
 ![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query2.png)
 
 @alekshard 
-¯\_(ツ)_/¯
+¯\_(ツ)_/¯ 
