@@ -42,6 +42,10 @@ v 1.0
 - Добавлен счётчик строк
 - Корректное отображение последней колонки во второй вкладке.
 
+NOTICE:
+This shit has gathered with the help of Ant.
+Because, I don't know how using Gradle or Maven ¯\_(ツ)_/¯
+
 ScreenShots:
 
 ![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query1.png)
@@ -49,3 +53,6 @@ ScreenShots:
 ![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query11.png)
 
 ![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query2.png)
+
+@alekshard 
+¯\_(ツ)_/¯
