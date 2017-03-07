@@ -6,6 +6,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
@@ -17,11 +19,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hive.controller.Controller">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="620.0" minWidth="1000.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hive.controller.Controller">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
-   <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+   <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="1000.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
+      <Menu mnemonicParsing="false" text="File">
+         <MenuItem mnemonicParsing="false" text="Открыть" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="Edit">
+         <MenuItem mnemonicParsing="false" text="Delete" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="About">
+         <MenuItem mnemonicParsing="false" text="App" />
+         <MenuItem mnemonicParsing="false" text="Author" />
+         <MenuItem mnemonicParsing="false" onAction="#license" text="LICENSE" />
+      </Menu>
+   </MenuBar>
+   <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Tab text="Сотрудники и гости">
          <AnchorPane prefHeight="600.0" prefWidth="1000.0">
             <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
@@ -113,8 +128,8 @@
                   <items>
                      <MenuItem fx:id="exExcel1" mnemonicParsing="false" onAction="#exExcelButton1" text="Excel        " />
                      <MenuItem fx:id="exWord1" disable="true" mnemonicParsing="false" onAction="#exWordButton1" text="Word" />
-                     <MenuItem mnemonicParsing="false" onAction="#exOtchetOFButton" text="Отчёт Фабрика" />
-                     <MenuItem mnemonicParsing="false" onAction="#exOtchetUKButton" text="Отчёт УК Южная" />
+                     <MenuItem mnemonicParsing="false" onAction="#exOtchetOFButton" text="ОФ Междуреченская" />
+                     <MenuItem mnemonicParsing="false" onAction="#exOtchetUKButton" text="УК Южная" />
                   </items>
                   <font>
                      <Font size="13.0" />
@@ -125,7 +140,7 @@
                </MenuButton>
             </HBox>
             <!-- Таблица в которую мы будем выводит наш pojo -->
-            <TableView fx:id="tableUsers" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
+            <TableView fx:id="tableUsers" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="55.0">
                <columns>
                   <!-- Колонки таблицы -->
                   <TableColumn fx:id="serColumn" maxWidth="500.0" minWidth="60.0" prefWidth="-1.0" text="Серия" />
@@ -141,7 +156,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="stroki" prefWidth="823.0" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <TextField fx:id="stroki" prefWidth="823.0" text="Количество строк: 0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
          </AnchorPane>
       </Tab>
       <Tab text="Передвижения сотрудников и гостей">
@@ -234,7 +249,7 @@
                   </HBox.margin>
                </MenuButton>
             </HBox>
-            <TableView fx:id="tableUsers2" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
+            <TableView fx:id="tableUsers2" editable="true" minHeight="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="55.0">
                <columns>
                   <TableColumn fx:id="serColumn2" maxWidth="500.0" minWidth="60.0" prefWidth="-1.0" text="Табельный №" />
                   <TableColumn fx:id="nomColumn2" maxWidth="500.0" minWidth="70.0" prefWidth="-1.0" text="Фамилия" />
@@ -249,8 +264,11 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="stroki2" text="Количество строк: 0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <TextField fx:id="stroki2" text="Количество строк: 0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
          </AnchorPane>
       </Tab>
    </TabPane>
+   <padding>
+      <Insets top="25.0" />
+   </padding>
 </AnchorPane>
