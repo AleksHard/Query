@@ -41,3 +41,17 @@ v 1.0
 - Добавлена возможность выбора даты поиска
 - Добавлен счётчик строк
 - Корректное отображение последней колонки во второй вкладке.
+
+NOTICE:
+This shit has gathered with the help of Ant.
+Because, I don't know how using Gradle or Maven 
+
+ScreenShots:
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query1.png)
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query11.png)
+
+![Image alt](https://github.com/AleksHard/Query/raw/master/ScreenShots/Query2.png)
+
+@alekshard 
