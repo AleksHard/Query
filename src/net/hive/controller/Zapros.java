@@ -19,7 +19,7 @@ class Zapros {
                 "        left join doubleperson pr on p.personid = pr.personid " +
                 " where p.passtype " + a +
                 " and pr.tableno " + tabZ + "" +
-                " and pr.orgid = 28" +
+                //" and pr.orgid = 28" +
                 " and p.cardstatus " + b +
                 " and upper (pr.name) like upper ('" + c + "%')" +
                 " and p.createdate > '"+ d +"' " +
@@ -47,7 +47,7 @@ class Zapros {
                 " and person.constantaccess " + a2 + " " +
                 " and bmsg.datetime between '" + t2 + "' and '" + t21 + "' " +
                 " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
-                " and person.orgid = 28";
+                " and person.orgid > 0";
     }
         // Запрос для ежемесячного отчёта / Фабрика
     static String otchetOF(String tt2, String ttt21){

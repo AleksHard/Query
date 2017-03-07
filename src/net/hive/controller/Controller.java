@@ -3,8 +3,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -70,7 +76,7 @@ public class Controller {
     // Комплект переменных второй вкладки
     static String t2 = "";
     static String t21 = "";
-    // инициализируем форму данными
+    // Инициализируем форму данными
     @FXML
     private void initialize() {
         // устанавливаем тип и значение которое должно храниться в колонке
@@ -93,7 +99,7 @@ public class Controller {
         //deviseIn2.setCellValueFactory(new PropertyValueFactory<>("devIn"));
     }
     @FXML   // Кнопка "Найти" первой вкладки
-    public void onClickMethod() {
+    public void onClickMethod() throws IOException {
         st ="BST";
         c = this.famId.getText();               // Вводим Фамилию
         d = dataDate.getValue();                // Вводим дату начала поиска
@@ -129,8 +135,7 @@ public class Controller {
         tableUsers.setItems(pojoData);              // Заполняем таблицу данными
     }
     @FXML   // Кнопка "Найти", второй вкладки
-
-    public void onClickMethod2() {
+    public void onClickMethod2() throws IOException {
         za2 = ">=1";                               // 1 - постоянные, 2 - временные
         st = "bprot";
         zc2 = famId2.getText();                    // Вводим Фамилию
@@ -165,7 +170,7 @@ public class Controller {
     private String a1 = null; private String b1 = null; private String c1 = null; private String d1 = null;
     private String e1 = null; private String f1 = null; private String g1 = null; private String h1 = null;
     private String st ="BST";
-    private void baza() {
+    private void baza() throws IOException {
         try { // Создаём соединение с БД
             st ="BST";
             Connection conn = getConnection();
@@ -212,7 +217,7 @@ public class Controller {
     private String za2 = null;  private String a2 = null;   private String d2 = null;   private String g2 = null;
     private String zb2 = null;  private String b2 = null;   private String e2 = null;
     private String zc2 = null;  private String c2 = null;   private String f2 = null;
-    private void baza2() {
+    private void baza2() throws IOException {
         try { // Создаём соединение с БД
             st = "bprot";
             Connection conn = getConnection();
@@ -251,7 +256,7 @@ public class Controller {
     }
     // Отчёт по фабрике
     private String a3 = null; private Integer b3 = null;  private String c3 = null;  private String d3 = null;
-    private void baza3(String test) {
+    private void baza3(String test) throws IOException {
         try { // Создаём соединение с БД
 
             st = "BST";
@@ -291,14 +296,18 @@ public class Controller {
         }
     }
     // Метод соединения с БД
-    private Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException, IOException {
                 try {
                     Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
                 } catch (Exception E) {
                     System.err.println("Unable to load driver.");
                     E.printStackTrace();
                 }
+                String fileName = "./pass.txt";
+                FileWorker stroka = new FileWorker();
+                String poisk = stroka.readUsingFiles(fileName);
                 // Путь к рабочей БД
+                //String url = poisk + st;
                 String url = "jdbc:firebirdsql:192.168.99.239/3050:"+st;
                 //String url = "jdbc:firebirdsql:localhost/3050:D:/Bastion/DB_for_reports/BD/BASTION.GDB";
                 // Данные для соединения с БД
@@ -307,26 +316,60 @@ public class Controller {
                 prop.setProperty("password", "!a2345678");
                 return DriverManager.getConnection(url, prop);
             }
-
+    static String tt2=null;                 // Дата начала
+    static String tt21=null;                // На вывод пользователю (Дата конца)
+    private static String ttt21=null;       // В запрос, в БАЗУ      (Дата конца)
     // Экспорт данных поиска в Excel файл (Вкладка Сотрудники и гости)
     public void exExcelButton1() throws IOException, NullPointerException  {
         String a = "./queryState.xlsx";
+        LocalDate d2 = dataDate.getValue();                // Вводим дату начала поиска
+        if (d2 == null){
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);
+            tt2 = dat;
+        }else{
+            tt2 = formatter.format(d2);}
+        LocalDate e2 = dataDate1.getValue();               // Вводим дату кончала поиска :-)
+        if (e2 == null){e2 = f;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);
+            tt21 = formatter.format(e2);
+            e2 = e2.plusDays(1);
+            ttt21 = formatter.format(e2);
+        }else{
+            tt21 = formatter.format(e2);
+            e2 = e2.plusDays(1);
+            ttt21 = formatter.format(e2);}
         ForExcel.wrightToExcel1(a,pojoData);
     }
     // Экспорт данных поиска в Excel файл (Вкладка Передвижения)
     public void exExcelButton2() throws IOException, NullPointerException {
         String a = "./queryGo.xlsx";
+        LocalDate d2 = dataDate.getValue();                // Вводим дату начала поиска
+        if (d2 == null){
+            String dat = f.format(formatter);
+            dataDate.setPromptText(dat);
+            tt2 = dat;
+        }else{
+            tt2 = formatter.format(d2);}
+        LocalDate e2 = dataDate1.getValue();               // Вводим дату кончала поиска :-)
+        if (e2 == null){e2 = f;
+            String dat = f.format(formatter);
+            dataDate1.setPromptText(dat);
+            tt21 = formatter.format(e2);
+            e2 = e2.plusDays(1);
+            ttt21 = formatter.format(e2);
+        }else{
+            tt21 = formatter.format(e2);
+            e2 = e2.plusDays(1);
+            ttt21 = formatter.format(e2);}
+        //pojoData.removeAll(pojoData);                       // Чистим коллекцию, чтоб не отображался мусор в таблице приложения
         ForExcel.wrightToExcel2(a,pojoData2);
     }
-
     public void exWordButton2() {
     }
     public void exWordButton1() {
     }
-
-    static String tt2=null;          // Дата начала
-    static String tt21=null;         // На вывод пользователю (Дата конца)
-    private static String ttt21=null;        // В запрос в БАЗУ      (Дата конца)
     public void exOtchetOFButton() throws IOException, NullPointerException  {
         // Чистим коллекцию от данных
         pojoData.removeAll(pojoData);
@@ -381,5 +424,17 @@ public class Controller {
         baza3(Zapros.otchetUK(tt2, ttt21));
         ForExcel.otchetUK(a,pojoData);
         pojoData.removeAll(pojoData);       // Чистим коллекцию, чтоб не отображался мусор в таблице приложения
+    }
+
+    public void license() throws IOException {
+        System.out.println("You clicked me!");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/net/hive/views/license.fxml"));
+        Parent root1 = fxmlLoader.load();
+        Stage stage = new Stage ();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Лицензия");
+        stage.setScene(new Scene(root1));
+        stage.show();
+
     }
 }
