@@ -19,7 +19,7 @@ class Zapros {
                 "        left join doubleperson pr on p.personid = pr.personid " +
                 " where p.passtype " + a +
                 " and pr.tableno " + tabZ + "" +
-                //" and pr.orgid = 28" +
+                //" and pr.orgid >= 0" +
                 " and p.cardstatus " + b +
                 " and upper (pr.name) like upper ('" + c + "%')" +
                 " and p.createdate > '"+ d +"' " +

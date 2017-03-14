@@ -28,7 +28,7 @@
          <MenuItem mnemonicParsing="false" text="Открыть" />
       </Menu>
       <Menu mnemonicParsing="false" text="Edit">
-         <MenuItem mnemonicParsing="false" text="Delete" />
+         <MenuItem mnemonicParsing="false" onAction="#openContrDB" text="Настройки" />
       </Menu>
       <Menu mnemonicParsing="false" text="About">
          <MenuItem mnemonicParsing="false" text="App" />
