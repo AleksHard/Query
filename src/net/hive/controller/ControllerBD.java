@@ -10,23 +10,25 @@ import java.util.ResourceBundle;
 
 /**
  * Created by kharlashkin on 09.03.2017.
- *
+ * Это класс-контроллер дополнительного окна интерфейса программы.
+ * Надо как-то взять от сюда данные и передать их в контроллер основного окна.
+ * Или переделать контроллер основного окна, выкинув из него лишний код, потому что там тварится полный адище...
  */
 public class ControllerBD implements Initializable {
 
-    public TextField routToDataBase;            // ���� � ���� ������
-    public PasswordField password;              // ������ ������������
-    public TextField login;                     // ��� ������������
+    public TextField routToDataBase;            // Путь к базе данных
+    public PasswordField password;              // Пароль пользователя
+    public TextField login;                     // Имя пользователя
     public String wayToDB;
     public String passDB;
     public String loginDB;
 
     public void saveChanges() {
         System.out.println(wayToDB);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
-        alert.setHeaderText("Look, an Error Dialog");
-        alert.setContentText("Ooops, there was an error!");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Firebird SQL v2.5");
+        alert.setHeaderText("Путь к БД Бастиона:");
+        alert.setContentText(wayToDB);
 
         alert.showAndWait();
     }
@@ -38,14 +40,8 @@ public class ControllerBD implements Initializable {
         loginDB = login.getText();
     }
 
-
     //String rout = routToDataBase.getText();
     //String pass = password.getText();
-
-
-
-
-
 
     /*public void saveChanges() {
         url = login.getText();
