@@ -10,14 +10,14 @@ import javafx.stage.Stage;
  * Created by kharlashkin on 09.03.2017.
  * Окно настройки доступа к БД
  */
-public class DataBase {
-    public DataBase() throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/net/hive/views/routToBD.fxml"));
+public class License {
+    public License() throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/net/hive/views/license.fxml"));
         Parent root1 = loader.load();
         Stage stage = new Stage ();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setResizable(false);
-        stage.setTitle("Настройки БД");
+        stage.setTitle("Лицензия");
         stage.setScene(new Scene(root1));
         stage.show();
     }
