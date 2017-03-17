@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 /**
  * Created by kharlashkin on 03.03.2017.
- * РџРѕ РёРґРµРµ, СЌС‚РѕС‚ РєР»Р°СЃСЃ РґРѕР»Р¶РµРЅ Р±С‹Р» Р±СЂР°С‚СЊ РїСѓС‚СЊ РґРѕ Р±Р°Р·С‹ РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р° (String filename)
- * РќРѕ РїРѕС‚РѕРј СЏ РїРµСЂРµРґСѓРјР°Р» Рё Р·Р°С€РёР» РїСѓС‚СЊ РґРѕ Р‘Р” РІ РѕС‚РґРµР»СЊРЅРѕРј РѕРєРЅРµ РїСЂРѕРіСЂР°РјРјС‹ (СЂРµР°Р»РёР·Р°С†РёСЏ РµС‰С‘ РЅРµ РіРѕС‚РѕРІР° :-( )
+ * По идее, этот класс должен был брать путь до базы данных из файла (String filename)
+ * Но потом я передумал и зашил путь до БД в отдельном окне программы (реализация ещё не готова :-( )
  */
 class FileWorker {
     String readUsingFiles(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         Scanner scanner = new Scanner(path);
-        //С‡РёС‚Р°РµРј РїРѕСЃС‚СЂРѕС‡РЅРѕ
+        //читаем построчно
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if(line.equals("jdbc:firebirdsql:192.168.99.239/3050:")){
