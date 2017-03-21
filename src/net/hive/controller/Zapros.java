@@ -35,6 +35,7 @@ class Zapros {
                 " dept.department, " +                // Подразделение
                 " bmsg.datetime, " +                  // Время события
                 " person.post_name " +                // Должность
+
                 " from person " +
                 " left join dept on dept.depid = person.depid " +
                 " left join bmsg on bmsg.personid = person.personid " +
@@ -60,7 +61,7 @@ class Zapros {
                                                         // 1 - активен;
                                                         // 3 - архивный;
                 " and pr.depid = 781 " +
-                                                       // 780 Гостевое АО "Междуречье"
+                                                        // 780 Гостевое АО "Междуречье"
                                                         // 781 Гостевое ОФ "Междуреченская"
                                                         // 779 Гостевое УК "Южная"
                 " and p.passtype = 2 " +
@@ -91,50 +92,3 @@ class Zapros {
                 " group by c.cardno ";
     }
 }
-
-
-
-// Тело запроса в первой вкладке.
-/* private String zap(String a, String tabZ, String b, String c){
- return "select  pr.docser, " +              // Ñåðèÿ ïàñïîðòà
- "        pr.docno, " +              // Íîìåð ïàñïîðòà
- "        pr.name, " +               // Ôàìèëèÿ
- "        pr.firstname, " +          // Èìÿ
- "        pr.secondname, " +         // Îò÷åñòâî
- "        pr.tableno, " +            // Òàáåëüíûé íîìåð
- "        p.createdate, " +          // Âðåìÿ âõîäà (ïîëó÷åíèÿ ãîñòåâîãî ïðîïóñêà)
- "        p.returndate " +           // Âðåìÿ âûõîäà (âîçâðàòà ãîñòåâîãî ïðîïóñêà)
- " from   doublepass p" +
- "        left join doubleperson pr on p.personid = pr.personid " +
- " where p.passtype " + a +
- " and pr.tableno " + tabZ + "" +
- " and pr.orgid = 28" +
- " and p.cardstatus " + b +
- " and upper (pr.name) like upper ('" + c + "%')" +
- " and p.createdate > '"+ d +"' " +
- " and ((p.returndate < '"+ e +"') " +" or (p.returndate is null))";
- }*/
-// Тело запроса во второй вкладке.
-/*private String zap2(String b2, String c2, String a2){
- return " select  person.tableno, " +         // Òàáåëüíûé íîìåð
- " person.name, " +                    // Ôàìèëèÿ
- " person.firstname, " +               // Èìÿ
- " person.secondname, " +              // Îò÷åñòâî
- " sourcedev.name, " +                 // Íàçâàíèå óñòðîéñòâà
- " dept.department, " +                // Ïîäðàçäåëåíèå
- " bmsg.datetime, " +                  // Âðåìÿ ñîáûòèÿ
- " person.post_name " +                // Äîëæíîñòü
-
- " from person " +
- " left join dept on dept.depid = person.depid " +
- " left join bmsg on bmsg.personid = person.personid " +
- " left join msgtext on msgtext.msgcode = bmsg.msgcode " +
- " left join sourcedev on sourcedev.sourcedevid = bmsg.sourcedevid " +
- " where " +
- "   person.tableno " + b2 + "" +
- " and upper (person.name) like upper ('" + c2 + "%')" +
- " and person.constantaccess " + a2 + " " +
- " and bmsg.datetime between '" + t2 + "' and '" + t21 + "' " +
- " and ((msgtext.msgtextid = 33) or (msgtext.msgtextid = 46))" +
- " and person.orgid = 28";
- }*/
