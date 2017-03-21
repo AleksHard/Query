@@ -1,57 +1,40 @@
 package net.hive.controller;
 
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * Created by kharlashkin on 09.03.2017.
- * Контроллер, для изменения настроек БД
+ * РљРѕРЅС‚СЂРѕР»Р»РµСЂ, РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє Р‘Р”
  */
-public class ControllerBD implements Initializable {
+public class ControllerBD {
 
-    public TextField routToDataBase;            // Путь к базе данных
-    public PasswordField password;              // Пароль пользователя
-    public TextField login;                     // Имя пользователя
-    public String wayToDB;
-    public String passDB;
-    public String loginDB;
+    public TextField routToDataBase;            // РџСѓС‚СЊ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…
+    public PasswordField password;              // РџР°СЂРѕР»СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    public TextField login;                     // РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    private String wayToDB;
+    private String passDB;
+    private String loginDB;
 
     public void saveChanges() {
         System.out.println(wayToDB);
-
+        initialize();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Firebird SQL v2.5");
-        alert.setHeaderText("Путь к БД Бастиона:");
+        alert.setHeaderText("РџСѓС‚СЊ Рє Р‘Р” Р‘Р°СЃС‚РёРѕРЅР°:");
         alert.setContentText(wayToDB);
-
         alert.showAndWait();
+        System.out.println(passDB);
+        System.out.println(loginDB);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         wayToDB = routToDataBase.getText();
         passDB = password.getText();
         loginDB = login.getText();
-    }
-
-
-    //String rout = routToDataBase.getText();
-    //String pass = password.getText();
-
-
-
-
-
-
-    /*public void saveChanges() {
-        url = login.getText();
-        if (url.equals(null)){
-            url = "APP_ADMIN";
+        if (passDB != null){
+            password.setText(passDB);
         }
-    }*/
+    }
 }
