@@ -5,6 +5,7 @@ JavaFX project. Client-Server application for a FireBird DB (Bastion 1.7.5)
 
 
 UPDATE LIST:
+
 v 1.4.4
 - Добавлено информационное окно на все экспорты в Excel.
 - Добавлен текст лицензии в меню приложения.
